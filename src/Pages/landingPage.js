@@ -1,21 +1,20 @@
 import React, {Component} from 'react';
 import {Card, CardTitle, Cell, Grid} from "react-mdl";
-import LoginForm from "../Components/loginForm"
+import LoginForms from "../Components/loginForm"
 import RegisterForm from "../Components/registerForm"
 import MyCard from "../Components/card"
+
+
+
 class landingPage extends Component {
 
-
-
-
     render() {
-
             return (
                 <div>
                     <div>
                         <Grid>
                             <Cell col={8}>
-                                    <LoginForm/>
+                                <LoginForms/>
                             </Cell>
                             <Cell col={4}>
                                 <RegisterForm/>
@@ -23,16 +22,16 @@ class landingPage extends Component {
                         </Grid>
                         <div>
                             <Grid>
-                                {/*<Cell col={3} className="">*/}
-                                    {/*<MyCard/>*/}
-                                {/*</Cell>*/}
-                                <Cell col={4}>
+                                <Cell col={3}>
                                     <MyCard/>
                                 </Cell>
-                                <Cell col={4}>
+                                <Cell col={3}>
                                     <MyCard/>
                                 </Cell>
-                                <Cell col={4}>
+                                <Cell col={3}>
+                                    <MyCard/>
+                                </Cell>
+                                <Cell col={3}>
                                     <MyCard/>
                                 </Cell>
                             </Grid>

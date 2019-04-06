@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
 import {Cell, Grid} from "react-mdl";
-import RegisterForm from "../Pages/landingPage";
 
 export default class registerForm extends Component {
+
+    submitRegister(event){
+
+    }
 
     render() {
 
         return (
-            <div className="main-box" id="register">
+            <div className="main-box" id="sub-box">
                 <Grid>
                     <Cell col={12}>
-                        <form className="form">
+                        <form className="form" >
                             <h2>Register</h2>
                             <div className="inputBox">
                                 <input type="text" id="registerUsername" required="required"
@@ -20,7 +23,7 @@ export default class registerForm extends Component {
                                 <input type="password" id="registerPassword" required="required"
                                        placeholder="Password"/>
                             </div>
-                            <input type="submit" name="submit" value="Register"/>
+                            <input type="submit" name="submit" value="Register" onClick={this.submitRegister.bind(this)}/>
                         </form>
                     </Cell>
                 </Grid>

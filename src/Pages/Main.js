@@ -7,9 +7,9 @@ import login from "./login"
 
 const Main = () => (
     <Switch>
-        <Route exact path="/" component={landingPage} />
+        <Route exact path="/" component={page1} />
         <Route path="/derivate" component={derivatePage} />
-        <Route path="/page1" component={page1} />
+        <Route path="/landingpage" component={landingPage} />
         <Route path="/login" component={login} />
     </Switch>
 )
