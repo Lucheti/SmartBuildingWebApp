@@ -47,25 +47,21 @@ export default class loginForm extends Component {
 
     render() {
         return(
-        <div className="main-box" id="sub-box">
+        <div className="main-box" id="sub-box" style={{background: "none"}}>
             <Grid id="noPadding">
-                {!this.state.adminClicked && <Cell col={6} style={{margin: 0, width: "50%"}}>
+                {/*~~~~~~~~~~~~~~ADMIN BUTTON~~~~~~~~~~~~~~~~~~~*/}
+                <Cell col={6} className={"cell" + (this.state.consorClicked? "Clicked": "")}>
                     <h4 className="alternativeButton" onClick={this.adminCliked}>Admin</h4>
-                </Cell>}
-                {this.state.adminClicked && <Cell col={6} style={{margin: 0, width: "50%" ,  background: "linear-gradient(to bottom, var(--left-red-darker), var(--right-red-darker))"
-                }}>
-                    <h4 className="alternativeButton" onClick={this.adminCliked}>Admin</h4>
-                </Cell>}
-                {!this.state.consorClicked && <Cell col={6} style={{margin: 0, width: "50%"}}>
+                </Cell>
+
+                {/*~~~~~~~~~~~~~~CONSOR BUTTON~~~~~~~~~~~~~~~~~~~*/}
+                <Cell col={6} className={"cell" + (this.state.adminClicked? "Clicked": "")}>
                     <h4 className="alternativeButton" onClick={this.consorCliked}>Consor</h4>
-                </Cell>}
-                {this.state.consorClicked && <Cell col={6} style={{margin: 0, width: "50%" ,  background: "linear-gradient(to bottom, var(--left-red-darker), var(--right-red-darker))"
-                }}>
-                    <h4 className="alternativeButton" onClick={this.consorCliked}>Consor</h4>
-                </Cell>}
+                </Cell>
+
             </Grid>
             {(this.state.isAdminLogin || this.state.isConsorLogin) &&
-            <Grid style={{background: "linear-gradient(to top, var(--left-red-darker), var(--right-red-darker))"}}>
+            <Grid style={{background: "linear-gradient(to top, var(--left-red), var(--right-red))"}}>
                 <Cell col={12}>
                     {this.state.isAdminLogin && <AdminLoginForm/>}
                     {this.state.isConsorLogin && <ConsortLoginForm/>}

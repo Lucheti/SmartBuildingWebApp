@@ -10,20 +10,20 @@ class Page1 extends Component {
         this.state = {
             isLoginOpen: false,
             isRegisterOpen: false,
-            isPageLoaded: false,
-            loginCliked: false,
+            viewDidLoad: false,
+            loginClicked: false,
             registerClicked: false
         };
     }
 
     showLoginBox = () => {
-        if (this.state.isPageLoaded) {
+        if (this.state.viewDidLoad) {
             this.setState({isLoginOpen: true, isRegisterOpen: false})
         }
     }
 
     showRegisterBox = () => {
-        if (this.state.isPageLoaded) {
+        if (this.state.viewDidLoad) {
             this.setState({isLoginOpen: false, isRegisterOpen: true})
         }
     }
@@ -31,14 +31,14 @@ class Page1 extends Component {
     loginCliked = () => {
         this.showLoginBox(this)
         this.setState({
-            loginCliked: true,
+            loginClicked: true,
             registerClicked: false
         })
     }
     registerCliked = () => {
         this.showRegisterBox(this)
         this.setState({
-            loginCliked: false,
+            loginClicked: false,
             registerClicked: true
         })
     }
@@ -47,28 +47,25 @@ class Page1 extends Component {
         return (
             <div>
                 <Grid>
-                    <Cell col={5} style={{padding: "16px"}}>
-                        <div className="main-box" id="noPadding">
-                            <Grid id="noPadding">
-                                {!this.state.loginCliked && <Cell col={6} style={{margin: 0, width: "50%"}}>
+                    <Cell col={5} style={{padding: "16px", height: "fit-content"}}>
+                        <div className="main-box" id="noPadding" style={{background: "none"}}>
+                            <Grid id="noPadding" >
+                                {/*~~~~~~~~~~~~~~LOGIN BUTTON~~~~~~~~~~~~~~~~~~~*/}
+
+                                <Cell col={6} className={"cell" + (this.state.loginClicked? "Clicked": "")}>
                                     <h4 className="button" onClick={this.loginCliked}>Login</h4>
-                                </Cell>}
-                                {this.state.loginCliked && <Cell col={6} style={{margin: 0, width: "50%" ,  background: "linear-gradient(to top, var(--left-red-darker), var(--right-red-darker))"
-                                }}>
-                                    <h4 className="button" onClick={this.showLoginBox}>Login</h4>
-                                </Cell>}
-                                {!this.state.registerClicked && <Cell col={6} style={{margin: 0, width: "50%"}}>
+                                </Cell>
+
+                                {/*~~~~~~~~~~~~~~REGISTER BUTTON~~~~~~~~~~~~~~~~~~~*/}
+                                <Cell col={6} className={"cell" + (this.state.registerClicked? "Clicked": "")}>
                                     <h4 className="button" onClick={this.registerCliked}>Register</h4>
-                                </Cell>}
-                                {this.state.registerClicked && <Cell col={6} style={{margin: 0, width: "50%" ,background: "linear-gradient(to top, var(--left-red-darker), var(--right-red-darker))"}}>
-                                    <h4 className="button" onClick={this.registerCliked}>Register</h4>
-                                </Cell>}
+                                </Cell>
                             </Grid>
                         </div>
 
                         {this.state.isLoginOpen && <LoginForm/>}
                         {this.state.isRegisterOpen && <RegisterForm/>}
-                        {this.state.isPageLoaded = true}
+                        {this.state.viewDidLoad = true}
                     </Cell>
                     <Cell col={7}>
                         <Grid>

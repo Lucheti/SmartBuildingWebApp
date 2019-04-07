@@ -116,9 +116,9 @@
 
 :root {
   --left-red: rgba(237,33,58,0.6);
-  --left-red-darker: rgba(237,33,58,0.7);
+  --left-red-darker: rgba(237,33,58,0.2);
   --right-red: rgba(147,41,30,0.6);
-  --right-red-darker: rgba(147,41,30,0.7);
+  --right-red-darker: rgba(147,41,30,0.2);
   --left-black: rgba(67,67,67,0.6);
   --right-black: rgba(0,0,0,0.6);
 }
@@ -134,6 +134,17 @@
 
 .button:hover{
   background: linear-gradient(to top, var(--left-red-darker), var(--right-red-darker));
+}
+
+.buttonCliked{
+  text-align: center;
+  font-weight: bolder;
+  color: white;
+  padding: 10px 5px 10px 5px;
+  font-family: inherit;
+  margin: 0;
+  width: 50%;
+
 }
 
 .alternativeButton{
@@ -155,7 +166,7 @@
 
 #sub-box{
   padding: 0;
-  background: linear-gradient(to bottom, var(--left-red-darker), var(--right-red-darker));
+  background: linear-gradient(to bottom, var(--left-red), var(--right-red));
 
 }
 
@@ -164,12 +175,13 @@
   background: linear-gradient(to bottom, var(--left-red-darker), var(--right-red-darker));
 }
 
-#loginTest:first-child{
-  visibility: hidden;
-  display: none;
+.cell{
+  margin: 0!important;
+  width: 50%!important;
+  background: linear-gradient(to bottom, var(--left-red), var(--right-red));
 }
-
-#loginTest input:hover:first-child{
-  visibility: visible;
-  display: flex;
+.cellClicked{
+  margin: 0!important;
+  width: 50%!important;
+  background: linear-gradient(to top, var(--left-red), var(--right-red));
 }
