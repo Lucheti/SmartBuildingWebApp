@@ -47,7 +47,7 @@ class Page1 extends Component {
         return (
             <div>
                 <Grid>
-                    <Cell col={5} style={{padding: "16px", height: "fit-content"}}>
+                    <Cell col={5} style={{paddingTop: "16px", height: "fit-content"}}>
                         <div className="main-box" id="noPadding" style={{background: "none"}}>
                             <Grid id="noPadding" >
                                 {/*~~~~~~~~~~~~~~LOGIN BUTTON~~~~~~~~~~~~~~~~~~~*/}

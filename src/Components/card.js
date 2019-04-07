@@ -11,13 +11,13 @@ export default class card extends Component {
                             <h2 style={{marginTop: '0'}}>
                                 Featured event:
                                 <br/>
-                                <h4>Event</h4>
+                                <p>Event</p>
 
 
-                                <h4 style={{marginBottom: '0'}}>
+                                <p style={{marginBottom: '0'}}>
                                     May 24, 2016<br/>
                                     7-11pm
-                                </h4>
+                                </p>
                             </h2>
                     </CardTitle>
                 </Card>

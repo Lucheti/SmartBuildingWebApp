@@ -49,21 +49,21 @@ class landingPage extends Component {
             );
         }
 
-    registerUser (username , password){
-        console.log(username)
-        console.log(password)
-        fetch('http://localhost:8080/admins', {
-            method: 'POST',
-            headers: {
-                // 'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                "username": username,
-                "password": password
-            })
-        })
-    }
+    // registerUser (username , password){
+    //     console.log(username)
+    //     console.log(password)
+    //     fetch('http://localhost:8080/admins', {
+    //         method: 'POST',
+    //         headers: {
+    //             // 'Accept': 'application/json',
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({
+    //             "username": username,
+    //             "password": password
+    //         })
+    //     })
+    // }
 
     // test(){
     //     if(this.state.rendered){}
