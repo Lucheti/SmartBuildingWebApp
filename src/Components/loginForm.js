@@ -56,7 +56,7 @@ export default class loginForm extends Component {
 
                 {/*~~~~~~~~~~~~~~CONSOR BUTTON~~~~~~~~~~~~~~~~~~~*/}
                 <Cell col={6} className={"cell" + (this.state.adminClicked? "Clicked": "")}>
-                    <h4 className="alternativeButton" onClick={this.consorCliked}>Consor</h4>
+                    <h4 className="alternativeButton" onClick={this.consorCliked}>Consort</h4>
                 </Cell>
 
             </Grid>

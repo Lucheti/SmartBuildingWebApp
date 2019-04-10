@@ -86,7 +86,7 @@ export default class registerForm extends Component {
             default:
                 break;
         }
-        this.setState({ formErrors, [name]: value }, () => console.log(this.state));
+        this.setState({ formErrors, [name]: value });
     };
 
 
@@ -99,18 +99,14 @@ export default class registerForm extends Component {
                         <form className="form" >
                             <h2>Register</h2>
                             <div className="inputBox">
-                                {/*<input type="text" id="registerUsername" required="required"*/}
-                                       {/*placeholder="Username" name="username" value={this.state.usernameInputValue} onChange={evt => this.updateUsernameInputValue(evt)}/>*/}
-                                <input type="text" id="registerUsername" required="required"
+                               <input type="text" id="registerUsername" required="required"
                                        placeholder="Username" name="username" value={this.state.usernameInputValue} onChange={this.handleChange}/>
                                 {formErrors.username.length > 0 &&
                                     <span className="errorMessage">{formErrors.username}</span>
                                 }
                             </div>
                             <div className="inputBox">
-                                {/*<input type="password" id="registerPassword" required="required"*/}
-                                       {/*placeholder="password" name="password" value={this.state.passwordInputValue} onChange={evt => this.updatePasswordInputValue(evt)}/>*/}
-                                <input type="password" id="registerPassword" required="required"
+                               <input type="password" id="registerPassword" required="required"
                                        placeholder="password" name="password" value={this.state.passwordInputValue} onChange={this.handleChange}/>
                                 {formErrors.password.length > 0 &&
                                     <span className="errorMessage">{formErrors.password}</span>

@@ -7,6 +7,14 @@ import MyCard from "../Components/card"
 
 
 class landingPage extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            viewDidLoad: false,
+            testClicked: false
+        }
+    }
+
 
     render() {
             return (
