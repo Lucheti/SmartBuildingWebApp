@@ -5,28 +5,27 @@ import 'react-mdl/extra/material'
 import Main from "./Pages/Main";
 import {Link} from "react-router-dom"
 
+
 class App extends Component {
 
   render() {
-    return <div className="body">
-        {/*<Layout className="main-div">*/}
-            {/*<Header title="SmartBuilding" scroll className="header-color">*/}
-                {/*<Navigation className="top-navbar">*/}
-                    {/*<Link to="/">Landing</Link>*/}
-                    {/*<Link to="/derivate">Derivate</Link>*/}
-                    {/*<Link to="/landingpage">ex home</Link>*/}
-                    {/*<Link to="/login">login</Link>*/}
-                    {/*<Link to="/derivate">Page 3</Link>*/}
-                    {/*<Link to="/derivate">Page 4</Link>*/}
-                {/*</Navigation>*/}
-            {/*</Header>*/}
-            {/*<Content>*/}
+    return <div className="">
+        <Layout className="main-div">
+            <Header title="SmartBuilding" scroll className="header-color">
+                <Navigation className="top-navbar">
+                    <Link to="/">Landing</Link>
+                    <Link to="/derivate">Derivate</Link>
+                    <Link to="/landingpage">ex home</Link>
+                    <Link to="/login">login</Link>
+                    <Link to="/derivate">Page 3</Link>
+                    <Link to="/derivate">Page 4</Link>
+                </Navigation>
+            </Header>
+            <Content>
                 <Main/>
-                {/*<div style={{height: "100em"}}>*/}
+            </Content>
+        </Layout>
 
-                {/*</div>*/}
-            {/*</Content>*/}
-        {/*</Layout>*/}
     </div>
   }
 }

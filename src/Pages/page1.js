@@ -3,6 +3,7 @@ import {Cell, Grid} from "react-mdl";
 import LoginForm from "../Components/loginForm"
 import RegisterForm from  "../Components/registerForm"
 import Card from "../Components/card"
+import Popup from "../PopUp";
 
 class Page1 extends Component {
     constructor(props){
@@ -12,8 +13,14 @@ class Page1 extends Component {
             isRegisterOpen: false,
             viewDidLoad: false,
             loginClicked: false,
-            registerClicked: false
+            registerClicked: false,
+            showPopup: false
         };
+    }
+
+    togglePopup = () => {
+        console.log("popup");
+        this.setState({showPopup:!this.state.showPopup})
     }
 
     showLoginBox = () => {
@@ -46,6 +53,7 @@ class Page1 extends Component {
     render() {
         return (
             <div>
+                {this.state.showPopup && <Popup text='Register Completed' togglePopup={this.togglePopup} />}
                 <Grid>
                     <Cell col={5} style={{paddingTop: "16px", height: "fit-content"}}>
                         <div className="main-box" id="noPadding" style={{background: "none"}}>
@@ -64,7 +72,7 @@ class Page1 extends Component {
                         </div>
 
                         {this.state.isLoginOpen && <LoginForm/>}
-                        {this.state.isRegisterOpen && <RegisterForm/>}
+                        {this.state.isRegisterOpen && <RegisterForm  handlePopup = {this.togglePopup}  />}
                         {this.state.viewDidLoad = true}
                     </Cell>
                     <Cell col={7}>

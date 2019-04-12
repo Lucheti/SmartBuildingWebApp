@@ -36,7 +36,7 @@ class DerivatePage extends Component{
                             !this.state.getSarted
                                 ? props =>  <LandingView style={props} toggle={this.toggle}/>
 
-                                : props =>  <LoginView style={props} toggle={this.toggle}/>
+                                : props =>  <LoginView style={props}/>
                         }
                     </Transition>
                 </div>

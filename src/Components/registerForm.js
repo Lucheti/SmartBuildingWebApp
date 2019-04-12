@@ -50,7 +50,9 @@ export default class registerForm extends Component {
                 "username": this.state.usernameInputValue,
                 "password": this.state.passwordInputValue
             })
-        })}
+        })
+          this.props.handlePopup();
+        }
         else {
         console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
         }
