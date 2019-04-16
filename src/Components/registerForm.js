@@ -50,7 +50,16 @@ export default class registerForm extends Component {
                 "username": this.state.usernameInputValue,
                 "password": this.state.passwordInputValue
             })
-        })}
+        })
+            .then(res => res.json())
+            .then(data => window.open("/derivate", "_self"))
+
+
+        }
+
+
+
+
         else {
         console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
         }
@@ -96,7 +105,7 @@ export default class registerForm extends Component {
             <div className="main-box" id="sub-box">
                 <Grid>
                     <Cell col={12}>
-                        <form className="form" >
+                        <form className="form">
                             <h2>Register</h2>
                             <div className="inputBox">
                                <input type="text" id="registerUsername" required="required"
