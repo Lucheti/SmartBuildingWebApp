@@ -52,8 +52,8 @@ export default class registerForm extends Component {
             })
         })
             .then(res => res.json())
-            .then(data => window.open("/derivate", "_self"))
-
+            .then(window.open("/derivate", "_self"))
+            .then(this.props.handlePopup())
 
         }
 
@@ -105,7 +105,7 @@ export default class registerForm extends Component {
             <div className="main-box" id="sub-box">
                 <Grid>
                     <Cell col={12}>
-                        <form className="form">
+                        <form className="form" >
                             <h2>Register</h2>
                             <div className="inputBox">
                                <input type="text" id="registerUsername" required="required"
