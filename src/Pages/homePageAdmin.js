@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Card, CardTitle, Cell, Grid} from "react-mdl";
 import MyCard from "../Components/card"
-import Popup from "../PopUp";
+import Popup from "../Components/PopUp";
 
 
 

@@ -3,7 +3,7 @@ import {Cell, Grid} from "react-mdl";
 import LoginForm from "../Components/loginForm"
 import RegisterForm from  "../Components/registerForm"
 import Card from "../Components/card"
-import Popup from "../PopUp";
+import Popup from "../Components/PopUp";
 
 class Page1 extends Component {
     constructor(props){
