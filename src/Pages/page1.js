@@ -23,26 +23,28 @@ class Page1 extends Component {
         this.setState({showPopup:!this.state.showPopup})
     }
 
-    showLoginBox = () => {
-        if (this.state.viewDidLoad) {
-            this.setState({isLoginOpen: true, isRegisterOpen: false})
-        }
+    showLoginBox = e => {
+        // e.preventDefault()
+        this.setState({isLoginOpen: true, isRegisterOpen: false})
+
     }
 
-    showRegisterBox = () => {
-        if (this.state.viewDidLoad) {
-            this.setState({isLoginOpen: false, isRegisterOpen: true})
-        }
+    showRegisterBox = e => {
+        // e.preventDefault()
+        this.setState({isLoginOpen: false, isRegisterOpen: true})
     }
 
-    loginCliked = () => {
+    loginCliked = e => {
+        e.preventDefault()
+
         this.showLoginBox(this)
         this.setState({
             loginClicked: true,
             registerClicked: false
         })
     }
-    registerCliked = () => {
+    registerCliked = e => {
+        e.preventDefault()
         this.showRegisterBox(this)
         this.setState({
             loginClicked: false,
@@ -58,8 +60,8 @@ class Page1 extends Component {
                     <Cell col={5} style={{paddingTop: "16px", height: "fit-content"}}>
                         <div className="main-box" id="noPadding" style={{background: "none"}}>
                             <Grid id="noPadding" >
-                                {/*~~~~~~~~~~~~~~LOGIN BUTTON~~~~~~~~~~~~~~~~~~~*/}
 
+                                {/*~~~~~~~~~~~~~~LOGIN BUTTON~~~~~~~~~~~~~~~~~~~*/}
                                 <Cell col={6} className={"cell" + (this.state.loginClicked? "Clicked": "")}>
                                     <h4 className="button" onClick={this.loginCliked}>Login</h4>
                                 </Cell>

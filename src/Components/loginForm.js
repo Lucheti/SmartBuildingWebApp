@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Cell, Grid} from "react-mdl";
 import AdminLoginForm from "./adminLoginForm"
 import ConsortLoginForm from "./consortLoginForm"
+import {Redirect} from "react-router-dom";
 
 export default class loginForm extends Component {
 
@@ -12,6 +13,8 @@ export default class loginForm extends Component {
             isConsorLogin: false,
             adminClicked:false,
             consorClicked: false,
+            usernameInputValue: "",
+            passwordInputValue: ""
         }
     }
 
@@ -44,9 +47,51 @@ export default class loginForm extends Component {
         })
     }
 
+    handleLogin = e =>{
+        console.log("attempting login")
+        e.preventDefault();
+            fetch('http://localhost:8080/oauth/token?grant_type=password&username='+ this.state.usernameInputValue +'&password=' + this.state.passwordInputValue, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Basic '+btoa('my-trusted-client:secret'),
+
+                },
+                body: JSON.stringify({
+                    "username": this.state.usernameInputValue,
+                    "password": this.state.passwordInputValue
+                })
+            })
+                .then((res,err) => {
+                    if(res) {
+                        res.json().then(json => {
+                        window.localStorage.setItem('token', json.access_token)
+                        console.log(json.access_token)
+                        // window.location.replace("/landingpage")
+                    })}
+                    else console.log(err)
+                })
+
+
+
+    }
+
+    updateUsernameInputValue = (evt) => {
+        this.setState({
+            usernameInputValue: evt.target.value
+        });
+    }
+    updatePasswordInputValue = (evt) =>{
+        this.setState({
+            passwordInputValue: evt.target.value
+        });
+    }
+
+    updateField = (evt) =>{
+        evt.target.name == "adminLoginUsername" ? this.updateUsernameInputValue(evt) : this.updatePasswordInputValue(evt)
+    }
 
     render() {
-        return(
+         return(
         <div className="main-box" id="sub-box" style={{background: "none"}}>
             <Grid id="noPadding">
                 {/*~~~~~~~~~~~~~~ADMIN BUTTON~~~~~~~~~~~~~~~~~~~*/}
@@ -63,8 +108,8 @@ export default class loginForm extends Component {
             {(this.state.isAdminLogin || this.state.isConsorLogin) &&
             <Grid style={{background: "linear-gradient(to top, var(--left-red), var(--right-red))"}}>
                 <Cell col={12}>
-                    {this.state.isAdminLogin && <AdminLoginForm/>}
-                    {this.state.isConsorLogin && <ConsortLoginForm/>}
+                    {this.state.isAdminLogin && <AdminLoginForm handleLogin={this.handleLogin} userValue={this.state.usernameInputValue} passValue={this.state.passwordInputValue} onUpdate={this.updateField}/>}
+                    {this.state.isConsorLogin && <ConsortLoginForm handleLogin={this.handleLogin}/>}
                 </Cell>
             </Grid>}
         </div>
