@@ -19,14 +19,6 @@ class App extends Component {
 
   render() {
 
-      const App = () =>{
-          const alert = useAlert()
-
-          return(
-              <button onClick={() => {alert.show('Oh look, an alert')}}>Show Alert</button>
-          )
-      }
-
     return <div className="">
         <Layout className="main-div">
             <Header title="SmartBuilding" scroll className="header-color">

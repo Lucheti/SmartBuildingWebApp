@@ -3,7 +3,7 @@ import {Card, CardTitle, Cell, Grid} from "react-mdl";
 import LoginForms from "../Components/loginForm"
 import RegisterForm from "../Components/registerForm"
 import MyCard from "../Components/card"
-import Popup from "../PopUp";
+import Popup from "../Components/PopUp";
 
 
 

@@ -19,7 +19,6 @@ class Page1 extends Component {
     }
 
     togglePopup = () => {
-        console.log("popup");
         this.setState({showPopup:!this.state.showPopup})
     }
 

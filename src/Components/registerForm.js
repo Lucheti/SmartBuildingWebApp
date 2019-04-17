@@ -40,7 +40,7 @@ export default class registerForm extends Component {
     submitRegister = e => {
         e.preventDefault();
         if (formValid(this.state)) {
-        fetch('http://localhost:8080/admins', {
+        fetch('http://localhost:8080/register', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -52,18 +52,23 @@ export default class registerForm extends Component {
             })
         })
             .then(res => res.json())
-            .then(window.open("/derivate", "_self"))
+            .then(this.emptyFields())
             .then(this.props.handlePopup())
 
         }
-
-
-
-
         else {
         console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
         }
     }
+
+
+    emptyFields(){
+        this.setState({
+            usernameInputValue: "",
+            passwordInputValue: ""
+        })
+    }
+
 
     updateUsernameInputValue(evt) {
         this.setState({

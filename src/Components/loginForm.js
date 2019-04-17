@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Cell, Grid} from "react-mdl";
 import AdminLoginForm from "./adminLoginForm"
 import ConsortLoginForm from "./consortLoginForm"
-import {Redirect} from "react-router-dom";
 
 export default class loginForm extends Component {
 
@@ -61,14 +60,15 @@ export default class loginForm extends Component {
                     "password": this.state.passwordInputValue
                 })
             })
-                .then((res,err) => {
-                    if(res) {
+                .then((res) => {
+                    if(res.ok) {
+                        console.log("res")
                         res.json().then(json => {
-                        window.localStorage.setItem('token', json.access_token)
-                        console.log(json.access_token)
-                        // window.location.replace("/landingpage")
+                        window.localStorage.setItem('token', json.access_token);
+                        console.log(json.access_token);
+                        window.open("/home", "_self")
                     })}
-                    else console.log(err)
+                    else console.log(res)
                 })
 
 
