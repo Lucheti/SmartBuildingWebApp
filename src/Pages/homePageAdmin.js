@@ -1,42 +1,65 @@
 import React, {Component} from 'react';
-import {Card, CardTitle, Cell, Grid} from "react-mdl";
-import MyCard from "../Components/card"
-import Popup from "../Components/PopUp";
+import {Button, Card, CardTitle, Cell, Grid} from "react-mdl";
+import ActionPanel from "../Components/ActionPanel";
 
 
 
-function homePageAdmin(){
-            return (
-                <div>
-                    <div>
-                        <div>
-                            <Grid>
-                                <Cell col={3}>
-                                    <MyCard/>
-                                </Cell>
-                                <Cell col={3}>
-                                    <MyCard/>
-                                </Cell>
-                                <Cell col={3}>
-                                    <MyCard/>
-                                </Cell>
-                                <Cell col={3}>
-                                    <MyCard/>
-                                </Cell>
-                            </Grid>
-                        </div>
-                    </div>
-                    <div className="test">
-                        <div className="main-box" id="info-div">
-                            <h1> SmartBuilding for your administration</h1>
-                        </div>
-                        <div className="black-text-background">
-                        </div>
-                    </div>
-                </div>
+class homePageAdmin extends Component {
+    constructor(props){
+        super(props)
+    }
 
-            );
-        }
+    getAdminNotifications = () => {
+        fetch("http://localhost:8080/admins/" + window.sessionStorage.id +"/notifications",{
+            method: 'GET',
+            headers: {
+                'Authorization': "Bearer " + window.sessionStorage.token
+            }
+        }).then(res => res.json())
+            .then(data => {
+
+                const list = document.getElementById("notifications")
+                for (const element of data){
+                    //create containers
+                    const notification = document.createElement("LI")
+                    const notificationInfo = document.createElement("h4")
+                    const notificationDescription = document.createElement("p")
+                    //get data
+                    notificationInfo.innerHTML = element.apartment.consorce.name + "    " + element.apartment.apartmentCode
+                    notificationDescription.innerHTML = element.description
+                    //append childs
+                    notification.appendChild(notificationInfo)
+                    notification.appendChild(notificationDescription)
+                    //insert items into list
+                    list.appendChild(notification)
+
+                }
+            }).catch()
+    }
+    componentWillMount() {
+        this.getAdminNotifications()
+    }
+
+
+
+
+
+    render() {
+        return (
+
+            <div>
+                <Grid>
+                    <Cell col={4}>
+                        <ul id="notifications" className="notification-list" />
+                    </Cell>
+                    <Cell col={8}>
+                        <ActionPanel/>
+                    </Cell>
+                </Grid>
+            </div>
+        )
+    }
+}
 
 
 

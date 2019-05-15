@@ -52,6 +52,7 @@ export default class registerForm extends Component {
             })
         })
             .then(res => res.json())
+            // .then(json => console.log(json))
             .then(this.emptyFields())
             .then(this.props.handlePopup())
 

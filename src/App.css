@@ -1,6 +1,12 @@
-.main-div{
+body{
+  overflow-scrolling: unset;
+  overflow: hidden;
+}
+
+body{
   /*background-image: url("http://www.uninorte.edu.py/wp-content/uploads/2017/05/administraciondeempresas-uninorte-720x388.jpg");*/
-  background-image: url(https://carleton.ca/finance-admin/wp-content/uploads/finadmin-banner.jpg);
+  /*background-image: url(https://carleton.ca/finance-admin/wp-content/uploads/finadmin-banner.jpg);*/
+  background: white;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -19,6 +25,7 @@
 }
 
 .header-color span{
+
   margin-left: 30px !important;
   font-size: 30px !important;
 }
@@ -249,8 +256,6 @@
   opacity: .5;
 }
 
-/*EXPERIMENTAL*/
-
 .arrow {
   box-sizing: border-box;
   height: 5vw;
@@ -291,4 +296,136 @@
   background: rgba(99%,0%,5%,0.75);
   z-index: 10;
 }
+
+.notification-list{
+  padding: 0px;
+  list-style: none;
+  overflow-y: scroll;
+  height: 75vh;
+  right:-30px;
+}
+.notification-list li{
+  margin: 10px;
+  padding: 10px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.6);
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+  overflow: hidden;
+  /*height: 10vh;*/
+  max-height: 10vh;
+  transition: max-height 0.2s ease-out;
+}
+
+.notification-list li:hover{
+  max-height: 500px;
+  transition: max-height 1s ease-in;
+}
+
+.notification-list p{
+  margin: 2vh 0 0 0;
+}
+.notification-list h1,h2,h3,h4{
+  margin-top: 1vh !important;
+}
+
+.notification-list li li{
+  background: none;
+  box-shadow: none;
+}
+.notification-list li li:hover{
+  max-height: 10vh;
+}
+
+.action-panel{
+
+}
+.action-panel Button{
+  /*la ul tiene 75vh => los 2 botones con sus margenes tienen q sumar eso*/
+  background: rgba(255,255,255,0.5);
+  width: 100%;
+  height: calc(75vh /2 - 1.5vh);
+  margin: 1vh 0 1vh 0;
+}
+
+.action-panel Button:nth-child(1){
+  margin-top: 0;
+}
+
+.action-panel Button:nth-child(2){
+  margin-bottom: 0;
+}
+
+
+.no-margin{
+  margin: 0 !important;
+}
+.no-lateral-margin{
+  margin-left: 0!important;
+  margin-right: 0!important;
+}
+.no-padding{
+  padding: 0 !important;
+}
+.full-size{
+  height: 74vh;
+  width: 100%;
+}
+.full-width{
+  width: 100%!important;
+}
+.test-object{
+  background: black;
+}
+
+
+
+/*EXPERIMENTAL*/
+.consorce-list{
+  padding: 0px;
+  overflow-y: scroll;
+  height: 75vh;
+  right:-30px;
+}
+
+.consorce-list div{
+  display: flex;
+  align-items: center;
+}
+.consorce-list div ul{
+  width: 100%;
+}
+
+.consorce-list h1,h2,h3,h4{
+  margin: 0!important;
+}
+.consorce-list ul{
+  margin: 10px;
+  list-style: none;
+  /*padding: 0;*/
+  font-size: 15px;
+  /*background: rgba(255,255,255,0.6);*/
+  /*box-shadow: 0px 0px 5px rgba(0,0,0,0.5);*/
+  overflow: hidden;
+  /*height: 10vh;*/
+  max-height: 0px;
+  transition: max-height 0.2s ease-out;
+}
+
+.consorce-list ul:hover{
+  max-height: 500px;
+  transition: max-height 1s ease-in;
+}
+
+.consorce-list input:checked ~ ul{
+  padding: 2em;
+  max-height: 500px;
+  transition: max-height 1s ease-in;
+}
+.consorce-list Button{
+  /*la ul tiene 75vh => los 2 botones con sus margenes tienen q sumar eso*/
+  background: black!important;
+  width: fit-content;
+  height: fit-content;
+}
+
 

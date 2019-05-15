@@ -1,64 +1,96 @@
 import React, {Component} from 'react';
-import {Card, CardTitle, Cell, Grid} from "react-mdl";
-import LoginForms from "../Components/loginForm"
-import RegisterForm from "../Components/registerForm"
-import MyCard from "../Components/card"
-import Popup from "../Components/PopUp";
+import {Cell, Grid} from "react-mdl";
+import LoginForm from "../Components/landingPageComponents/loginForm"
+import RegisterForm from "../Components/landingPageComponents/registerForm"
+import Card from "../Components/card"
+import Popup from "../Components/landingPageComponents/PopUp";
 
-
-
-class landingPage extends Component {
+class LandingPage extends Component {
     constructor(props){
         super(props);
-        this.state={
+        this.state = {
+            isLoginOpen: false,
+            isRegisterOpen: false,
             viewDidLoad: false,
-            testClicked: false
-        }
+            loginClicked: false,
+            registerClicked: false,
+            showPopup: false
+        };
     }
 
+    togglePopup = () => {
+        this.setState({showPopup:!this.state.showPopup})
+    }
+
+    showLoginBox = e => {
+        // e.preventDefault()
+        this.setState({isLoginOpen: true, isRegisterOpen: false})
+
+    }
+
+    showRegisterBox = e => {
+        // e.preventDefault()
+        this.setState({isLoginOpen: false, isRegisterOpen: true})
+    }
+
+    loginCliked = e => {
+        e.preventDefault()
+
+        this.showLoginBox(this)
+        this.setState({
+            loginClicked: true,
+            registerClicked: false
+        })
+    }
+    registerCliked = e => {
+        e.preventDefault()
+        this.showRegisterBox(this)
+        this.setState({
+            loginClicked: false,
+            registerClicked: true
+        })
+    }
 
     render() {
-            return (
-                <div>
-                    <div>
-                        <Grid>
-                            <Cell col={8}>
-                                <LoginForms/>
-                            </Cell>
-                            <Cell col={4}>
-                                <RegisterForm/>
-                            </Cell>
-                        </Grid>
-                        <div>
-                            <Grid>
-                                <Cell col={3}>
-                                    <MyCard/>
+        return (
+            <div>
+                {this.state.showPopup && <Popup text='Register Completed' togglePopup={this.togglePopup} />}
+                <Grid>
+                    <Cell col={5} style={{paddingTop: "16px", height: "fit-content"}}>
+                        <div className="main-box" id="noPadding" style={{background: "none"}}>
+                            <Grid id="noPadding" >
+
+                                {/*~~~~~~~~~~~~~~LOGIN BUTTON~~~~~~~~~~~~~~~~~~~*/}
+                                <Cell col={6} className={"cell" + (this.state.loginClicked? "Clicked": "")}>
+                                    <h4 className="button" onClick={this.loginCliked}>Login</h4>
                                 </Cell>
-                                <Cell col={3}>
-                                    <MyCard/>
-                                </Cell>
-                                <Cell col={3}>
-                                    <MyCard/>
-                                </Cell>
-                                <Cell col={3}>
-                                    <MyCard/>
+
+                                {/*~~~~~~~~~~~~~~REGISTER BUTTON~~~~~~~~~~~~~~~~~~~*/}
+                                <Cell col={6} className={"cell" + (this.state.registerClicked? "Clicked": "")}>
+                                    <h4 className="button" onClick={this.registerCliked}>Register</h4>
                                 </Cell>
                             </Grid>
                         </div>
-                    </div>
-                    <div className="test">
-                        <div className="main-box" id="info-div">
-                            <h1> SmartBuilding for your administration</h1>
-                        </div>
-                        <div className="black-text-background">
-                        </div>
-                    </div>
-                </div>
 
-            );
-        }
+                        {this.state.isLoginOpen && <LoginForm/>}
+                        {this.state.isRegisterOpen && <RegisterForm  handlePopup = {this.togglePopup}  />}
+                        {this.state.viewDidLoad = true}
+                    </Cell>
+                    <Cell col={7}>
+                        <Grid>
+                            <Cell col={6}>
+                                <Card/>
+                            </Cell>
+                            <Cell col={6}>
+                                <Card/>
+                            </Cell>
+                        </Grid>
+                    </Cell>
+                </Grid>
+            </div>
 
+        );
     }
+}
 
-
-export default landingPage;
+export default LandingPage;

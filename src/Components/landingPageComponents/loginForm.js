@@ -47,29 +47,41 @@ export default class loginForm extends Component {
     }
 
     handleLogin = e =>{
-        console.log("attempting login")
         e.preventDefault();
             fetch('http://localhost:8080/oauth/token?grant_type=password&username='+ this.state.usernameInputValue +'&password=' + this.state.passwordInputValue, {
                 method: 'POST',
                 headers: {
                     'Authorization': 'Basic '+btoa('my-trusted-client:secret'),
 
-                },
-                body: JSON.stringify({
-                    "username": this.state.usernameInputValue,
-                    "password": this.state.passwordInputValue
-                })
+                }
             })
                 .then((res) => {
+                    console.log(res)
                     if(res.ok) {
-                        console.log("res")
                         res.json().then(json => {
-                        window.localStorage.setItem('token', json.access_token);
-                        console.log(json.access_token);
-                        window.open("/home", "_self")
+                        window.sessionStorage.setItem('token', json.access_token);
+
+                        fetch("http://localhost:8080/admins/login",{
+                                method: 'POST',
+                                headers:{
+                                    'Content-Type': 'application/json',
+                                    'Authorization': "Bearer " + window.sessionStorage.token
+                                },
+                                body: JSON.stringify({
+                                    "username": this.state.usernameInputValue,
+                                    "password": this.state.passwordInputValue
+                                })
+                            }).then(res =>{
+                                console.log(res)
+                                if(res.ok) res.json().then(json => {
+                                    window.sessionStorage.setItem("id",json.id)
+                                    window.open("/home", "_self")
+                                })
+                            })
                     })}
                     else console.log(res)
                 })
+
 
 
 
@@ -87,7 +99,7 @@ export default class loginForm extends Component {
     }
 
     updateField = (evt) =>{
-        evt.target.name == "adminLoginUsername" ? this.updateUsernameInputValue(evt) : this.updatePasswordInputValue(evt)
+        evt.target.name === "adminLoginUsername" ? this.updateUsernameInputValue(evt) : this.updatePasswordInputValue(evt)
     }
 
     render() {
