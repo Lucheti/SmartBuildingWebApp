@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Content, Drawer, Header, Layout, Navigation, Switch} from "react-mdl";
 import 'react-mdl/extra/material'
 import Main from "./Pages/Main";
-import {Link, Route, Router} from "react-router-dom"
 
 class App extends Component {
 
@@ -15,8 +13,9 @@ class App extends Component {
 
   render() {
 
-    return <div className="">
-        <Layout className="main-div">
+    return (
+      <div className="">
+        {/*<Layout className="main-div">*/}
             {/*<Header title="SmartBuilding" scroll className="header-color">*/}
                 {/*<Navigation className="top-navbar">*/}
                     {/*<Link to="/">Landing</Link>*/}
@@ -30,8 +29,9 @@ class App extends Component {
             {/*<Content>*/}
                 <Main/>
             {/*</Content>*/}
-        </Layout>
+        {/*</Layout>*/}
     </div>
+    )
   }
 }
 

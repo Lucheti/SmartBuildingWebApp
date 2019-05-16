@@ -1,13 +1,12 @@
 import React from 'react';
 import {Switch, Route, Redirect} from "react-router-dom";
-import oldLandingPage from "./oldLandingPage";
-import derivatePage from "./derivatePage";
 import landingPage from "./landingPage"
 import homePageAdmin from "./homePageAdmin";
+import derivatePage from "./homePageConsort";
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const PrivateRoute = ({ component: Component,redirectCondition: Condition, ...rest }) => (
     <Route {...rest} render={(props) => (
-        window.localStorage.token !== undefined
+        window.sessionStorage.token !== undefined && window.sessionStorage.role === Condition
             ? <Component {...props} />
             : <Redirect to='/' />
     )} />
@@ -16,9 +15,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 const Main = () => (
     <Switch>
         <Route exact path="/" component={landingPage} />
-        <Route path="/landingpage" component={oldLandingPage} />
-        <Route path="/derivate" component={derivatePage} />
-        <PrivateRoute path="/home" component={homePageAdmin} />
+        <PrivateRoute path="/consortHome" component={derivatePage} redirectCondition="consort"/>
+        <PrivateRoute path="/adminHome" component={homePageAdmin} redirectCondition="admin"/>
     </Switch>
 )
 
