@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Button, Card, CardTitle, Cell, Grid} from "react-mdl";
 import ActionPanel from "../Components/adminHomePageComponents/ActionPanel";
 import NotificationList from "../Components/adminHomePageComponents/NotificationList";
+import LogoutButton from "../Components/generalComponents/LogoutButton";
 
 
 

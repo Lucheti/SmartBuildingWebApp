@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Spring, Transition} from "react-spring/renderprops";
+import ReportProblem from "../Components/consortHomePageComponents/ReportProblem";
+import LogoutButton from "../Components/generalComponents/LogoutButton";
 
 
 class HomePageConsort extends Component{
@@ -21,12 +23,8 @@ class HomePageConsort extends Component{
     render() {
             return(
                 <div>
-                    <Transition
-                        from={{position: 'absolute', marginTop: -500 }}
-                        enter={{ marginTop: 0}}
-                        leave={{ opacity: 0}}
-                    >
-                    </Transition>
+                    <ReportProblem/>
+                    <LogoutButton/>
                 </div>
                 )
             }

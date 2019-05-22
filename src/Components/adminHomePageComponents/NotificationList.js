@@ -11,19 +11,30 @@ export default class NotificationList extends Component {
             }
         }).then(res => res.json())
             .then(data => {
-
+                console.log(data)
                 const list = document.getElementById("notification-list");
                 for (const element of data){
                     //create containers
                     const notification = document.createElement("LI");
-                    const notificationInfo = document.createElement("h4");
-                    const notificationDescription = document.createElement("p");
+                    const consorce = document.createElement("h4");
+                    const apartment = document.createElement("h4")
+                    const category = document.createElement("p");
+                    const description = document.createElement("p");
                     //get data
-                    notificationInfo.innerHTML = element.apartment.consorce.name + "    " + element.apartment.apartmentCode;
-                    notificationDescription.innerHTML = element.description;
+                    consorce.innerHTML = element.apartment.consorce.name;
+                    apartment.innerHTML = element.apartment.apartmentCode;
+                    category.innerHTML = element.category.name;
+                    description.innerHTML = element.description;
+                    //extra things for style
+                    consorce.id = "consorce";
+                    apartment.id = "apartmentCode";
+                    category.id = "category";
+                    description.id = "description";
                     //append childs
-                    notification.appendChild(notificationInfo);
-                    notification.appendChild(notificationDescription);
+                    notification.appendChild(consorce);
+                    notification.appendChild(apartment);
+                    notification.appendChild(category);
+                    notification.appendChild(description);
 
                     //insert items into list
                     list.appendChild(notification);

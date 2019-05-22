@@ -8,10 +8,9 @@ export default function LandingPage(){
         return (
             <div className="landing-bg">
                 <Logo/>
-                <AdminLoginForm />
+                <AdminLoginForm/>
                 <ConsortLoginForm/>
             </div>
-
         );
 
 }

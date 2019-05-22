@@ -6,7 +6,7 @@ import Main from "./Pages/Main";
 class App extends Component {
 
     constructor(props){
-        super(props)
+        super(props);
         this.state={
         }
     }
@@ -15,21 +15,7 @@ class App extends Component {
 
     return (
       <div className="">
-        {/*<Layout className="main-div">*/}
-            {/*<Header title="SmartBuilding" scroll className="header-color">*/}
-                {/*<Navigation className="top-navbar">*/}
-                    {/*<Link to="/">Landing</Link>*/}
-                    {/*<Link to="/derivate">Derivate</Link>*/}
-                    {/*<Link to="/landingpage">ex home</Link>*/}
-                    {/*<Link to="/login">login</Link>*/}
-                    {/*<Link to="/derivate">Page 3</Link>*/}
-                    {/*<Link to="/derivate">Page 4</Link>*/}
-                {/*</Navigation>*/}
-            {/*</Header>*/}
-            {/*<Content>*/}
                 <Main/>
-            {/*</Content>*/}
-        {/*</Layout>*/}
     </div>
     )
   }

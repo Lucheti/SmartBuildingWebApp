@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import AddConsorceButton from "./addConsorceButton";
+import Consorce from "./Consorce";
 
 export class ManageConsorces extends Component {
 
@@ -8,7 +9,6 @@ export class ManageConsorces extends Component {
     }
 
     getConsorceInfo = e =>{
-        e.target.onclick = undefined;
         fetch("http://localhost:8080/admins/"+ window.sessionStorage.id+"/consorce/"+e.target.id+"/apartment",{
             method: 'GET',
             headers: {
@@ -41,6 +41,10 @@ export class ManageConsorces extends Component {
             })
     }
 
+    deployMoreInfo = evt =>{
+        evt.target.checked? this.getConsorceInfo(evt) : this.emptyApartmentList(evt);
+    }
+
     updateConsorcesList = () => {
         setTimeout(() => {
             this.emptyConsorcesList();
@@ -52,6 +56,12 @@ export class ManageConsorces extends Component {
         const consorceList = document.getElementById("consorces");
         while (consorceList.firstChild)
             consorceList.removeChild(consorceList.firstChild)
+    };
+
+    emptyApartmentList = evt =>{
+        const apartmentList = document.getElementById("consorce" + evt.target.id);
+        while (apartmentList.firstChild)
+            apartmentList.removeChild(apartmentList.firstChild)
     }
 
     fillConsorcesList = () =>{
@@ -81,6 +91,7 @@ export class ManageConsorces extends Component {
                     consorceContainer.appendChild(consorceListItem)
 
                     consorceList.appendChild(consorceContainer)
+
                 }
             })
     }
@@ -92,7 +103,7 @@ export class ManageConsorces extends Component {
         // console.log(consorce.id)
        deployButton.id = consorce.id;
        //  deployButton.setAttribute("consorce-id", id);
-        deployButton.onclick = this.getConsorceInfo;
+        deployButton.onclick = this.deployMoreInfo;
         return deployButton;
     }
 
@@ -104,7 +115,8 @@ export class ManageConsorces extends Component {
     render() {
         return (
 
-            <div className="no-margin no-padding full-size">
+            <div className="">
+                <Consorce consorceName="adfasdfa"/>
                 <ul id="consorces" className="consorce-list"/>
                 <AddConsorceButton updateConsorcesList={this.updateConsorcesList}/>
             </div>

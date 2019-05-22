@@ -55,7 +55,7 @@ export default class adminLoginForm extends Component{
                         })
                     })}
                 else console.log(res)
-            })
+            }).catch(e => console.log(e))
 
 
 

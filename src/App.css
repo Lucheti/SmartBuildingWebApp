@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900');
+
 /*VARIABLES*/
 :root {
     --red : #ED213A;
@@ -34,7 +36,6 @@
 
 /*ADMIN LOGIN FORM*/
 
-@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900');
 .landing-bg {
     padding: 0;
     display: flex;
@@ -42,7 +43,6 @@
     height: 100vh;
     font-family: var(--font);
     background: linear-gradient(to bottom, #fff 30%, #ECE9E6 60%, #93291E 60%, #ED213A );
-
 
 }
 .login
@@ -236,6 +236,29 @@
     margin: 0!important;
 }
 
+.notification-list li{
+    display: contents;
+}
+
+#consorce{
+    float: left;
+    width: 90%;
+}
+#apartmentCode{
+    float: right;
+    width: 10%;
+}
+
+#category{
+    float: left;
+    width: 100%;
+    margin: 0;
+}
+
+#description{
+    float: left;
+}
+
 /*ACTION PANEL*/
 
 .action-panel{
@@ -256,4 +279,12 @@
 
 .action-panel-view{
     height: 90%;
+}
+
+/*CONSORCE LIST*/
+
+
+.consorce-list{
+    overflow: scroll;
+    max-height: 80vh;
 }
