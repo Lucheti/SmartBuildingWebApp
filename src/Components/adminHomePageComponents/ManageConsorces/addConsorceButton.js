@@ -50,14 +50,17 @@ export default class AddConsorceButton extends Component {
                     {value => this.updateList = value}
                 </UpdateConsorcesList.Consumer>
                 <form>
-                    <div>
+                    <div className={'file-upload'}>
                         <label>
+                            <i className={'fa fa-plus'}/>
                             Upload Img
+                            <input type="file" required="required"/>
                         </label>
-                        <input type="file" required="required"/>
                     </div>
-                    <input value={this.state.addConsorceName} onChange={this.updateAddConsorceName}/>
-                    <input type="submit" value="+" onClick={this.addConsorce} required="required"/>
+                    <div className='inputs'>
+                        <input value={this.state.addConsorceName} onChange={this.updateAddConsorceName}/>
+                        <input type="submit" value="+" onClick={this.addConsorce} required="required"/>
+                    </div>
                 </form>
 
             </div>

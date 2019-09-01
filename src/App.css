@@ -808,7 +808,30 @@
     margin: 1em;
 }
 
+.add-consorce .file-upload{
+    position: relative;
+    width: 50%;
+    margin: 1rem;
+    border: 1px dashed black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-consorce .file-upload input{
+    opacity: 0;
+    width: 100%;
+    position: absolute;
+    height: 100%;
+}
+
 .add-consorce form{
+    display: flex;
+    height: 100%;
+}
+.add-consorce form .inputs{
+    padding: 1rem;
+    width: 50%;
 }
 
 .add-consorce input[type='file']{
