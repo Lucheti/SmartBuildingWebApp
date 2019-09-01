@@ -35,7 +35,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@material-ui/core": "^4.4.0",
     "install-peers": "^1.0.3"
   }
 }

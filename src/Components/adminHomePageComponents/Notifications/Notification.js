@@ -49,7 +49,7 @@ export default class Notification extends Component {
 
                     </div>
 
-                    }
+                        }
             </li>
         )
     }

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import DeleteApartmentButton from "./DeleteApartmentButton";
-import DisplayApartmentInfoButton from "./ConsorceTools/DisplayApartmentInfoButton";
 
 export default class Apartment extends Component {
 
@@ -21,7 +20,7 @@ export default class Apartment extends Component {
             <li>
                 <span className="number">{apartmentCode}</span>
                 <span className="name">{name}</span>
-                <DisplayApartmentInfoButton apartmentId={id}/>
+                <span className="points"><i className="fa fa-plus"/></span>
                 <DeleteApartmentButton apartmentId={id}/>
             </li>
         )
