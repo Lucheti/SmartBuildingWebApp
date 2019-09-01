@@ -807,6 +807,9 @@
     width: 100%;
     min-height: 17vw;
     margin: 1em;
+    background: white;
+    box-shadow: rgba(0,0,0,.5) 0 0 10px;
+
 }
 
 .add-consorce .file-upload{
@@ -817,6 +820,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 1.5rem;
+}
+
+.add-consorce .file-upload label > *{
+    margin: 0 .5rem;
 }
 
 .add-consorce .file-upload input{
@@ -824,6 +832,8 @@
     width: 100%;
     position: absolute;
     height: 100%;
+    top: 0;
+    left: 0;
 }
 
 .add-consorce form{
@@ -834,7 +844,38 @@
     padding: 1rem;
     width: 50%;
 }
-
-.add-consorce input[type='file']{
-
+.add-consorce form .inputs .input-group {
+    display: flex;
+    padding: 1rem;
+    font-size: larger;
 }
+
+.add-consorce form .inputs .input-group input{
+    width: 60%;
+    background: none;
+    border: none;
+    border-bottom: 1px solid gray;
+    font-size: 1rem;
+}
+
+.add-consorce form .inputs .input-group p{
+    width: 30%;
+    text-align: left;
+}
+
+.add-consorce form .inputs .input-group > *{
+    margin: 0 1rem;
+}
+
+.add-consorce form .inputs .submit-button{
+    display: flex;
+    justify-content: center;
+}
+.add-consorce form .inputs .submit-button input{
+    font-size: 1rem;
+    padding: .5rem;
+}
+
+
+
+

@@ -11,13 +11,14 @@ export default class DeleteConsorceButton extends Component {
 
 
     deleteConsorce = () =>{
+        console.log(this.state.id);
         fetch("http://localhost:8080/admins/consorce/"+this.state.id, {
                 method: 'DELETE',
             headers: {
                 'Authorization': "Bearer " + window.sessionStorage.token
             }
         })
-            .then(res => this.updateList())
+            .then(res => { if (res.ok) {this.updateList()}})
     }
 
     updateList = () => {}
