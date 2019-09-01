@@ -1,37 +1,24 @@
 import React, {Component} from 'react';
 import {UpdateApartmentsList} from './Consorce'
+import {toggleApartmentList} from "../functions/toggleApartmentList";
+import DeleteConfirmModal from "./DeleteConfirmModal";
 
-export default class DeleteApartmentButton extends Component {
+const useBoolan = (initialState) => {
+    const [bool, setBool] = React.useState(initialState)
+    const toggle = () => {setBool(!bool)}
+    return[bool, toggle]
+}
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            apartmentId: props.apartmentId,
-            apartmentList: props.apartmentList
-        }
-    }
 
-    deleteApartment = () => {
-        fetch("http://192.168.0.185:8080/apartments/"+this.state.apartmentId, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token
-            }
-        }).then(res => this.updateApartmentList())
-    }
+export default function DeleteApartmentButton({apartmentId}){
 
-    updateApartmentList = () => {};
+    const [showModal, toggleModal] = useBoolan(false)
 
-    render() {
+
         return (
-            <UpdateApartmentsList.Consumer>
-                {
-                    value => {
-                        this.updateApartmentList = value;
-                        return <span className="badge" onClick={this.deleteApartment}><i className="fa fa-trash"/></span>
-                    }
-                }
-            </UpdateApartmentsList.Consumer>
+            <>
+            <i style={{cursor: "pointer"}} className="fa fa-trash" onClick={toggleModal}/>
+            {showModal && <DeleteConfirmModal apartmentId={apartmentId}/>}
+            </>
         )
-    }
 }
