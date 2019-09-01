@@ -10,7 +10,7 @@ export default function ConsortAlerts(){
 
     function getAlerts(){
         if (!loaded) {
-            fetch("http://localhost:8080/alerts/" + window.sessionStorage.id, {
+            fetch("http://192.168.0.185:8080/alerts/" + window.sessionStorage.id, {
                 method: 'GET',
                 headers: {
                     'Authorization': "Bearer " + window.sessionStorage.token

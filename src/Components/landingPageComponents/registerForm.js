@@ -41,7 +41,7 @@ export default class RegisterForm extends Component {
     submitRegister = e => {
         e.preventDefault();
         if (formValid(this.state)) {
-        fetch('http://localhost:8080/register', {
+        fetch('http://192.168.0.185:8080/register', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

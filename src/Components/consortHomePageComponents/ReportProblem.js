@@ -28,7 +28,7 @@ export default class ReportProblem extends Component {
 
     notifyProblem = evt =>{
         evt.preventDefault();
-        fetch('http://localhost:8080/notifications', {
+        fetch('http://192.168.0.185:8080/notifications', {
             method: 'POST',
             headers: {
                 'Authorization': "Bearer " + window.sessionStorage.token,
@@ -56,7 +56,7 @@ export default class ReportProblem extends Component {
     }
 
     getCategorys = () => {
-        fetch("http://localhost:8080/categorys",{
+        fetch("http://192.168.0.185:8080/categorys",{
             method: 'GET',
             headers: {
                 'Authorization': "Bearer " + window.sessionStorage.token

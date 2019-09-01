@@ -31,7 +31,7 @@ export default class Consorce extends Component {
     }
 
     updateApartmentList = () =>{
-        fetch("http://localhost:8080/admins/consorce/"+this.state.consorce.id+"/apartment",{
+        fetch("http://192.168.0.185:8080/admins/consorce/"+this.state.consorce.id+"/apartment",{
             method: 'GET',
             headers: {
                 'Authorization': "Bearer " + window.sessionStorage.token
@@ -44,7 +44,7 @@ export default class Consorce extends Component {
     };
 
     getAlerts = () => {
-        fetch("http://localhost:8080/alerts/" + this.state.consorce.id,{
+        fetch("http://192.168.0.185:8080/alerts/" + this.state.consorce.id,{
             method: 'GET',
             headers: {
                 'Authorization': "Bearer " + window.sessionStorage.token
@@ -66,18 +66,13 @@ export default class Consorce extends Component {
 
 
     render() {
-
         const {consorce,apartments,showApartments,showAddApartmentForm,showAlertConsorceForm,alerts} = this.state;
         const {name} = consorce;
         const {i} = this.props;
-
         const consorceItem = "consorce-item" + (showApartments? " open " : " ")
         const building = "building building"+(i % 8);
         return (
             <div className={consorceItem}>
-
-
-
                 <UpdateApartmentsList.Provider value={this.updateApartmentList}>
                     <ShowAlertConsorceForm.Provider value={this.toggleShowAlertConsorceForm}>
                         <div className={building}/>
@@ -92,25 +87,13 @@ export default class Consorce extends Component {
                             {showAddApartmentForm && <AddApartmentForm id={consorce.id}/>}
                             {showAlertConsorceForm && <AlertConsorceForm consorce={consorce} update={this.getAlerts}/>}
 
-
-
-
-
                             {showApartments &&
                             <ul className="apartments">
                                 {apartments.map(apartment => (<Apartment key={apartment.id} apartment={apartment}/>))}
                             </ul>}
                         </div>
-
-
-
-
-
-
                     </ShowAlertConsorceForm.Provider>
                 </UpdateApartmentsList.Provider>
-
-
             </div>
         )
     }

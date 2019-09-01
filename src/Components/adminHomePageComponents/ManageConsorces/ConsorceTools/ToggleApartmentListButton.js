@@ -1,6 +1,5 @@
 import React from 'react';
 import {toggleApartmentList} from "../../functions/toggleApartmentList";
-import {updateApartmentList} from "../../functions/updateApartmentList";
 
 export default function ToggleApartmentListButton({apartmentsList}){
 
@@ -14,7 +13,7 @@ export default function ToggleApartmentListButton({apartmentsList}){
 
 
     return (
-        <input type="submit" value={showDetails ? "Hide details" : "Show details"} onClick={toggle}/>
+        <input type="submit" value={showDetails ? "Hide apartments" : "Show apartments"} onClick={toggle}/>
         )
 
 }

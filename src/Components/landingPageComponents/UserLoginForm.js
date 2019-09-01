@@ -17,7 +17,7 @@ export default function userLoginForm(){
 
     const handleLogin = e => {
         e.preventDefault();
-        fetch('http://localhost:8080/oauth/token?grant_type=password&username=' + username() + '&password=' + password(), {
+        fetch('http://192.168.0.185:8080/oauth/token?grant_type=password&username=' + username() + '&password=' + password(), {
             method: 'POST',
             headers: {
                 'Authorization': 'Basic ' + btoa('my-trusted-client:secret'),
@@ -25,7 +25,7 @@ export default function userLoginForm(){
         })
             .then(res => res.json())
             .then(json => {
-                fetch("http://localhost:8080/admins/login", {
+                fetch("http://192.168.0.185:8080/admins/login", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

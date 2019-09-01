@@ -12,7 +12,7 @@ export default class DeleteApartmentButton extends Component {
     }
 
     deleteApartment = () => {
-        fetch("http://localhost:8080/apartments/"+this.state.apartmentId, {
+        fetch("http://192.168.0.185:8080/apartments/"+this.state.apartmentId, {
             method: 'DELETE',
             headers: {
                 'Authorization': "Bearer " + window.sessionStorage.token
@@ -20,7 +20,7 @@ export default class DeleteApartmentButton extends Component {
         }).then(res => this.updateApartmentList())
     }
 
-    updateApartmentList = () => {}
+    updateApartmentList = () => {};
 
     render() {
         return (

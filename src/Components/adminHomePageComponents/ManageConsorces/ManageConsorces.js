@@ -1,41 +1,47 @@
 import React, {Component} from "react";
 import AddConsorceButton from "./addConsorceButton";
 import Consorce from "./Consorce";
-
 export const UpdateConsorcesList = React.createContext();
 
 
-export function ManageConsorces() {
+export class ManageConsorces extends Component {
 
-    const [consorces, setConsorce] = React.useState([])
+    constructor(props){
+        super(props);
+        this.state = {
+            consorces: []
+        }
+    }
 
-    React.useEffect(() => {
-        updateConsorcesList()
-    }, []);
+    componentWillMount() {
+        this.updateConsorcesList()
+    }
 
-    const updateConsorcesList = () => {
-        fetch("http://localhost:8080/admins/" + window.sessionStorage.id + "/consorce", {
+    updateConsorcesList = () => {
+        fetch("http://192.168.0.185:8080/admins/"+ window.sessionStorage.id +"/consorce", {
             method: 'GET',
             headers: {
                 'Authorization': "Bearer " + window.sessionStorage.token
             }
         }).then(res => res.json())
-            .then(data => {
-                setConsorce([])
-                setConsorce(data)
-            })
-    };
+            .then(data => this.setState({consorces: data}))
+    }
 
-    return (
-        <UpdateConsorcesList.Provider value={updateConsorcesList}>
-            <div className="">
-                <div className="consorces-wrapper">
-                    {consorces.map((item, i) => (<Consorce consorce={item} i={i}/>))}
-                    <AddConsorceButton/>
+    render() {
+
+        var {consorces} = this.state;
+
+        return (
+            <UpdateConsorcesList.Provider value={this.updateConsorcesList}>
+                <div className="">
+                    <div className="consorces-wrapper">
+                        {consorces.map( (item, i) => <Consorce consorce={item} i={i}/>)}
+                        <AddConsorceButton/>
+                    </div>
                 </div>
-            </div>
-        </UpdateConsorcesList.Provider>
+            </UpdateConsorcesList.Provider>
 
-    )
+        )
+    }
 
 }

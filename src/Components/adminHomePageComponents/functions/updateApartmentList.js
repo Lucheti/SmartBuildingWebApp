@@ -1,6 +1,6 @@
 
 export const updateApartmentList = evt =>{
-    fetch("http://localhost:8080/admins/consorce/"+evt.state.consorce.id+"/apartment",{
+    fetch("http://192.168.0.185:8080/admins/consorce/"+evt.state.consorce.id+"/apartment",{
         method: 'GET',
         headers: {
             'Authorization': "Bearer " + window.sessionStorage.token

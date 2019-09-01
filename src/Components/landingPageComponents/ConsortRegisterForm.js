@@ -22,14 +22,14 @@ export default class consortRegisterForm extends Component{
 
     handleLogin = e => {
         e.preventDefault();
-        fetch('http://localhost:8080/oauth/token?grant_type=client_credentials', {
+        fetch('http://192.168.0.185:8080/oauth/token?grant_type=client_credentials', {
             method: 'POST',
             headers: {
                 'Authorization': 'Basic ' + btoa('my-trusted-client:secret'),
             }
         }).then(res => res.json())
             .then(json => {
-                fetch("http://localhost:8080/apartments/" + this.state.consortCode, {
+                fetch("http://192.168.0.185:8080/apartments/" + this.state.consortCode, {
                     method: 'GET',
                     headers: {
                         'Authorization': "Bearer " + json.access_token

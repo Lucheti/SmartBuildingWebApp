@@ -17,7 +17,7 @@ export default function AlertConsorceForm({consorce ,update}) {
 
     function addAlert(evt) {
         evt.preventDefault();
-        fetch("http://localhost:8080/alerts",{
+        fetch("http://192.168.0.185:8080/alerts",{
             method: 'POST',
             headers: {
                 'Authorization': "Bearer " + window.sessionStorage.token,
@@ -43,7 +43,7 @@ export default function AlertConsorceForm({consorce ,update}) {
 
     function getCategorys(){
         if (!loaded) {
-            fetch("http://localhost:8080/categorys", {
+            fetch("http://192.168.0.185:8080/categorys", {
                 method: 'GET',
                 headers: {
                     'Authorization': "Bearer " + window.sessionStorage.token

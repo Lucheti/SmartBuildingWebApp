@@ -17,18 +17,25 @@ function HomePageConsort(){
 
             return(
                 <div className="main-container">
+                    <Header/>
                     <Grid className="no-padding">
                         <Cell col={3}>
                             <NotificationList/>
                             <ConsortAlerts/>
                         </Cell>
-                        <Cell col={9}>
-                            <Button className="logout" onClick={logout}>LOGOUT</Button>
-                        </Cell>
                     </Grid>
                 </div>
                 )
 
+}
+
+const Header = () => {
+    return (
+        <div className='header'>
+            <h4>Smart Building</h4>
+            <button onClick={() => logout()}>Logout</button>
+        </div>
+    )
 }
 
 export default HomePageConsort;

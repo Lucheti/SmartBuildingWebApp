@@ -18,7 +18,7 @@ export default class SetPasswordBox extends Component {
     setPassword = e => {
         e.preventDefault()
         this.updateUser()
-        fetch("http://localhost:8080/users",{
+        fetch("http://192.168.0.185:8080/users",{
             method: "PUT",
             headers: {
                 'Accept': 'application/json',

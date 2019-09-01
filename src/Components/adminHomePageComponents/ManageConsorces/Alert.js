@@ -5,7 +5,7 @@ export default function Alert({alert, update}) {
 
     function dismissAlert(){
 
-        fetch("http://localhost:8080/alerts",{
+        fetch("http://192.168.0.185:8080/alerts",{
             method: 'DELETE',
             headers: {
                 'Authorization': "Bearer " + window.sessionStorage.token,
