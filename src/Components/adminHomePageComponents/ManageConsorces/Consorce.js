@@ -76,7 +76,6 @@ export default class Consorce extends Component {
                 <UpdateApartmentsList.Provider value={this.updateApartmentList}>
                     <ShowAlertConsorceForm.Provider value={this.toggleShowAlertConsorceForm}>
                         <div className={building}/>
-
                         <div className="title-highlighter">
                             <h2>{name}</h2>
                             <ConsorceTools apartmentsList={this} consorce={consorce}/>

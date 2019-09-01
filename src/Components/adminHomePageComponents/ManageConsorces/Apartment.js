@@ -11,8 +11,6 @@ export default class Apartment extends Component {
         }
     }
 
-
-
     render() {
         const {apartment} = this.state;
         const {owner,apartmentCode,id} = apartment;

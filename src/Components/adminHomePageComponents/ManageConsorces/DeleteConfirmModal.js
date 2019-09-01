@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function DeleteConfirmModal({apartmentId}) {
+export default function DeleteConfirmModal({apartmentId,callback}) {
 
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
@@ -39,14 +39,6 @@ export default function DeleteConfirmModal({apartmentId}) {
         setOpen(false);
     };
 
-    const deleteApartment = () => {
-        fetch("http://192.168.0.185:8080/apartments/"+apartmentId, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token
-            }
-        }).then(res => updateApartmentList())
-    };
 
 
     return (
@@ -66,7 +58,7 @@ export default function DeleteConfirmModal({apartmentId}) {
                         This action can not be undone
                     </p>
                     <div style={{display: "flex"}}>
-                        <div onClick={deleteApartment} style={{ cursor: "pointer",backgroundColor: "red",height: 50,width: 150, borderRadius: 8, marginRight:50, marginLeft: 25, display:"flex", alignItems: "center", justifyContent:"center", flexDirection:"row"}}>
+                        <div onClick={()=>{callback(apartmentId)}} style={{ cursor: "pointer",backgroundColor: "red",height: 50,width: 150, borderRadius: 8, marginRight:50, marginLeft: 25, display:"flex", alignItems: "center", justifyContent:"center", flexDirection:"row"}}>
                             <i style={{flex:2, marginTop: 0, marginLeft: 10}} className="fas fa-trash-alt"/>
                             <p style={{flex:7, marginBottom:0, marginRight: 10}}>Confirm Delete</p>
                         </div>
