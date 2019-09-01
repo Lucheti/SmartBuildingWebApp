@@ -5,10 +5,13 @@ import homePageAdmin from "./homePageAdmin";
 import homePageConsort from "./homePageConsort";
 import notFound from "./notFound";
 
-const PrivateRoute = ({ component: Component,redirectCondition: Condition, ...rest }) => (
+const PrivateRoute = ({ adminPage: AdminPage,consortPage: ConsortPage, ...rest }) => (
     <Route {...rest} render={(props) => (
-        window.sessionStorage.token !== undefined && window.sessionStorage.role === Condition
-            ? <Component {...props} />
+        window.sessionStorage.token !== undefined ?
+            <div>
+                    {window.sessionStorage.role === "admin" && <AdminPage {...props}/>}
+                    {window.sessionStorage.role === "consort" && <ConsortPage {...props}/>}
+            </div>
             : <Redirect to='/' />
     )} />
 );
@@ -16,8 +19,7 @@ const PrivateRoute = ({ component: Component,redirectCondition: Condition, ...re
 const Main = () => (
     <Switch>
         <Route exact path="/" component={landingPage} />
-        <PrivateRoute path="/adminHome" component={homePageAdmin} redirectCondition="admin"/>
-        <PrivateRoute path="/consortHome" component={homePageConsort} redirectCondition="consort"/>
+        <PrivateRoute path="/home" adminPage={homePageAdmin} consortPage={homePageConsort} redirectCondition="admin"/>
         <Route path="/notfound" component={notFound}/>
     </Switch>
 )

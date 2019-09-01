@@ -1,44 +1,26 @@
 import React, {Component} from 'react';
 import {Button, Cell, Grid} from "react-mdl";
-import {ManageConsorces} from "./ManageConsorces";
+import {ManageConsorces} from "./ManageConsorces/ManageConsorces";
 import GeneralView from "./GeneralView";
+import {logout} from "../generalFunctions/logout";
+import {AdminPageContext} from "../../Pages/homePageAdmin";
 
-export default class ActionPanel extends Component {
 
-    constructor(props){
-        super(props)
-        this.state = {
-            openedTool: "1"
-        }
-    }
+export default function ActionPanel() {
 
-    toggleTool = toolButton =>{
-        this.setState({openedTool: toolButton.target.id});
-    }
+        const [tool,] = React.useContext(AdminPageContext);
 
-    logout = () => {
-        window.sessionStorage.clear()
-        window.open("/","_self")
-    }
 
-    render() {
-            const {openedTool} = this.state;
         return (
                 <Grid className="action-panel">
-                    <Cell col={12} className="action-panel-navbar">
-                        <Button name="action-button" id="1" onClick={this.toggleTool}>General</Button>
-                        <Button name="action-button" id="2" onClick={this.toggleTool}>Manage Consorces</Button>
-                        <Button name="action-button" id="3" onClick={this.toggleTool}>3</Button>
-                        <Button name="action-button" id="4" onClick={this.toggleTool}>Logout</Button>
-                    </Cell>
                     <Cell col={12} className="action-panel-view">
-                        {openedTool === "1" && <GeneralView/>}
-                        {openedTool === "2" && <ManageConsorces/>}
-                        {openedTool === "4" && this.logout()}
-                        {"tool opened:" + openedTool}
+                        {tool === '1'?
+                            <GeneralView/>
+                            :
+                            <ManageConsorces/>
+                        }
                     </Cell>
                 </Grid>
         )
-    }
 }
 

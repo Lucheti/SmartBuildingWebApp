@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Chart from "../../Test/Chart";
 
 export default class GeneralView extends Component {
 
@@ -18,7 +19,7 @@ export default class GeneralView extends Component {
         })
             .then(res => res.json())
             .then(data => {
-                this.setState({admin: data.username})
+                this.setState({admin: data.name})
             })
     }
 
@@ -32,6 +33,7 @@ export default class GeneralView extends Component {
         return (
             <h1>
                 {"Hello " + this.state.admin + ","}
+                <Chart/>
             </h1>
         )
     }

@@ -1,23 +1,29 @@
 import React, {Component} from 'react';
+import {NotiList} from "../adminHomePageComponents/Notifications/NotificationList";
+import {updateNotificationList} from "../adminHomePageComponents/functions/updateNotificationList";
 
 export default class ReportProblem extends Component {
+
 
     constructor(props){
         super(props);
         this.state = {
             description: "",
-            category: ""
+            category: "",
+            categorys: []
         }
     }
 
-    updateDesc = evt => {
+    updateFields = evt => {
         evt.preventDefault();
-        this.setState({description: evt.target.value})
+        this.setState({[evt.target.name]: evt.target.value})
     }
 
-    updateCategory = evt => {
-        evt.preventDefault();
-        this.setState({category: evt.target.value})
+    emptyFields = () => {
+        this.setState({
+            description: "",
+            category: ""
+        })
     }
 
     notifyProblem = evt =>{
@@ -34,23 +40,52 @@ export default class ReportProblem extends Component {
                 category: {
                     name: this.state.category
                 },
-                apartment: {
+                user: {
                     id: window.sessionStorage.id
                 }
             })
 
 
-        })    }
+        })
+            .then(res => {
+                if (res.ok) {
+                    updateNotificationList(this.props.list);
+                    this.emptyFields();
+                }
+            } )
+    }
 
+    getCategorys = () => {
+        fetch("http://localhost:8080/categorys",{
+            method: 'GET',
+            headers: {
+                'Authorization': "Bearer " + window.sessionStorage.token
+            }
+        }).then(res => res.json())
+            .then(data => {
+                this.setState({categorys: data})})
+        }
+
+    componentWillMount() {
+        this.getCategorys();
+        }
 
 
     render() {
+        const {category , description} = this.state;
         return (
+            <div className="report-problem">
+                <h1 id={"report-problemh1"}>Have a Problem?</h1>
+                <h4 id="report-problemh4">Let your admin know!</h4>
             <form>
-                <input placeholder="Description" onChange={this.updateDesc}/>
-                <input placeholder="Category" onChange={this.updateCategory}/>
-                <input type="submit" onClick={this.notifyProblem}/>
+                <input value={category} type="text" placeholder="Category" name="category" onChange={this.updateFields} list="categorys" autoComplete="off"/>
+                <input value={description} type="text" placeholder="Description" name="description" onChange={this.updateFields}/>
+                <input type="submit" value="Send" onClick={this.notifyProblem}/>
+                    <datalist id="categorys">
+                        {this.state.categorys.map( category => <option value={category.name}/>)}
+                    </datalist>
             </form>
+            </div>
         )
     }
 }

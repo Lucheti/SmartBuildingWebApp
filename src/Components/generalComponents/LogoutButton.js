@@ -11,7 +11,7 @@ export default class LogoutButton extends Component {
     render() {
 
         return (
-            <Button onClick={this.logout}/>
+            <button onClick={this.logout}>LOGOUT</button>
         )
     }
 }

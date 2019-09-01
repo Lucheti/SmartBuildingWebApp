@@ -21,13 +21,14 @@ const formValid = ({ formErrors, ...rest }) => {
     return valid;
 };
 
-export default class registerForm extends Component {
+export default class RegisterForm extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            usernameInputValue: "",
-            passwordInputValue: "",
+            name: "",
+            email: "",
+            password: "",
             formErrors: {
                 username: "",
                 password: ""
@@ -47,38 +48,27 @@ export default class registerForm extends Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                "username": this.state.usernameInputValue,
-                "password": this.state.passwordInputValue
+                "email": this.state.email,
+                "name": this.state.name,
+                "role": "admin",
+                "password": this.state.password,
             })
         })
-            .then(res => res.json())
-            // .then(json => console.log(json))
-            .then(this.emptyFields())
-            .then(this.props.handlePopup())
-
-        }
-        else {
-        console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
+            .then(res => {
+                if (res.ok) {
+                    this.kill()
+                }
+            })
         }
     }
 
-
-    emptyFields(){
-        this.setState({
-            usernameInputValue: "",
-            passwordInputValue: ""
-        })
+    kill = () => {
+        this.props.setRegister();
     }
 
-
-    updateUsernameInputValue(evt) {
+    updateValue(evt) {
         this.setState({
-            usernameInputValue: evt.target.value
-        });
-    }
-    updatePasswordInputValue(evt) {
-        this.setState({
-            passwordInputValue: evt.target.value
+            [evt.target.name]: evt.target.value
         });
     }
 
@@ -88,15 +78,20 @@ export default class registerForm extends Component {
         let formErrors = {...this.state.formErrors};
 
         switch (name) {
-            case "username":
+            case "name":
                 formErrors.username =
                     value.length < 3 ? "minimum 3 characaters required" : "";
-                this.updateUsernameInputValue(e);
+                this.updateValue(e);
+                break;
+            case "email":
+                formErrors.username =
+                    value.length < 3 ? "minimum 3 characaters required" : "";
+                this.updateValue(e);
                 break;
             case "password":
                 formErrors.password =
                     value.length < 6 ? "minimum 6 characaters required" : "";
-                this.updatePasswordInputValue(e);
+                this.updateValue(e);
                 break;
             default:
                 break;
@@ -106,31 +101,40 @@ export default class registerForm extends Component {
 
 
     render() {
-        const { formErrors } = this.state;
+        const { formErrors,name,email,password } = this.state;
         return (
-            <div className="main-box" id="sub-box">
-                <Grid>
-                    <Cell col={12}>
-                        <form className="form" >
-                            <h2>Register</h2>
-                            <div className="inputBox">
-                               <input type="text" id="registerUsername" required="required"
-                                       placeholder="Username" name="username" value={this.state.usernameInputValue} onChange={this.handleChange}/>
-                                {formErrors.username.length > 0 &&
-                                    <span className="errorMessage">{formErrors.username}</span>
-                                }
-                            </div>
-                            <div className="inputBox">
-                               <input type="password" id="registerPassword" required="required"
-                                       placeholder="password" name="password" value={this.state.passwordInputValue} onChange={this.handleChange}/>
-                                {formErrors.password.length > 0 &&
-                                    <span className="errorMessage">{formErrors.password}</span>
-                                }
-                            </div>
-                            <input type="submit" name="submit" value="Register" onClick={this.submitRegister}/>
-                        </form>
-                    </Cell>
-                </Grid>
+            <div className="login">
+                <h2>Register</h2>
+                <form>
+                    <div className="input-group">
+                        <input type="text" id="registerUsername" required="required"
+                               name="name" value={name} onChange={this.handleChange}/>
+                        <span>Name</span>
+                        {formErrors.username.length > 0 &&
+                        <p>{formErrors.username}</p>
+                        }
+                    </div>
+                    <div className="input-group">
+                        <input type="text" id="registerUsername" required="required"
+                                name="email" value={email} onChange={this.handleChange}/>
+                               <span>Email</span>
+                               {formErrors.username.length > 0 &&
+                               <p>{formErrors.username}</p>
+                               }
+                    </div>
+                    <div className="input-group">
+                        <input type="password" id="registerPassword" required="required"
+                                name="password" value={password} onChange={this.handleChange}/>
+                               <span>Password</span>
+                               {formErrors.password.length > 0 &&
+                               <p>{formErrors.password}</p>
+                               }
+                    </div>
+                    <div className="input-group">
+                        <input type="submit" name="submit" value="Register" onClick={this.submitRegister}/>
+                    </div>
+                </form>
+                <a href="#">Already have an account? <span onClick={this.kill}>Click Here</span></a>
             </div>
         )
     }

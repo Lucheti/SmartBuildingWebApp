@@ -1,24 +1,22 @@
-import React, { Component } from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import 'react-mdl/extra/material'
 import Main from "./Pages/Main";
 
-class App extends Component {
+function App (){
 
-    constructor(props){
-        super(props);
-        this.state={
-        }
-    }
+        useEffect(() => {
+            window.addEventListener("dragover",e => { e.preventDefault(); },false);
+            window.addEventListener("drop",e => { e.preventDefault(); },false);
+        },[]);
 
-  render() {
 
-    return (
-      <div className="">
+        return (
+            <div className="">
                 <Main/>
-    </div>
-    )
-  }
+            </div>
+        )
+
 }
 
 export default App;
