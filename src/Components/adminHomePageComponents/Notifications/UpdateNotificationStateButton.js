@@ -12,7 +12,7 @@ export default class UpdateNotificationStateButton extends Component {
     }
 
     getNextState = () => {
-        fetch("http://localhost:8080/state/" + this.state.notification.state.id,{
+        fetch("http://192.168.0.185:8080/state/" + this.state.notification.state.id,{
             method: 'GET',
             headers: {
                 'Authorization': "Bearer " + window.sessionStorage.token
@@ -24,7 +24,7 @@ export default class UpdateNotificationStateButton extends Component {
 
     updateState = e => {
         e.preventDefault();
-        fetch("http://localhost:8080/notifications", {
+        fetch("http://192.168.0.185:8080/notifications", {
             method: "PUT",
             headers: {
                 'Authorization': "Bearer " + window.sessionStorage.token,
@@ -42,7 +42,7 @@ export default class UpdateNotificationStateButton extends Component {
     };
 
     deleteNotification = () => {
-        fetch('http://localhost:8080/notifications/' + this.state.notification.id, {
+        fetch('http://192.168.0.185:8080/notifications/' + this.state.notification.id, {
             method: 'DELETE',
             headers: {
                 'Authorization': "Bearer " + window.sessionStorage.token,
