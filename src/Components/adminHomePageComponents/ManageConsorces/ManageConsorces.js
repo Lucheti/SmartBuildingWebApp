@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import AddConsorceButton from "./addConsorceButton";
 import Consorce from "./Consorce";
+import { BASE_URL } from '../../../Pages/Main'
 export const UpdateConsorcesList = React.createContext();
 
 
@@ -18,10 +19,9 @@ export class ManageConsorces extends Component {
     }
 
     updateConsorcesList = () => {
-        fetch("http://192.168.0.185:8080/admins/"+ window.sessionStorage.id +"/consorce", {
+        fetch(BASE_URL + "/admins/"+ window.sessionStorage.id +"/consorce", {
             method: 'GET',
             headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token
             }
         }).then(res => res.json())
             .then(data => this.setState({consorces: data}))

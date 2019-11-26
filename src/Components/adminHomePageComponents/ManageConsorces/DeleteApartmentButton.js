@@ -1,6 +1,9 @@
 import React from 'react';
 import DeleteConfirmModal from "./DeleteConfirmModal";
-import {UpdateApartmentsList} from "./Consorce";
+import {ApartmentsContext} from "./Consorce";
+import { BASE_URL } from '../../../Pages/Main'
+import { ModalContext } from '../../../Pages/homePageAdmin'
+import { SHOW_MODAL } from '../reducers/ModalReducer'
 
 const useBoolan = (initialState) => {
     const [bool, setBool] = React.useState(initialState)
@@ -12,22 +15,25 @@ const useBoolan = (initialState) => {
 
 export default function DeleteApartmentButton({apartmentId}){
 
-    const [showModal, toggleModal] = useBoolan(false)
-    const updateApartmentList = React.useContext(UpdateApartmentsList)
+    const dispatchModal = React.useContext(ModalContext)
+    const {update} = React.useContext(ApartmentsContext)
 
     const deleteApartment = () => {
-        fetch("http://192.168.0.185:8080/apartments/"+apartmentId, {
+        fetch(BASE_URL + "/apartments/"+apartmentId, {
             method: 'DELETE',
             headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token
             }
-        }).then(res => updateApartmentList())
+        }).then(res => {
+            if (res.ok){
+                update()
+            }
+        })
     };
 
         return (
             <>
-            <i style={{cursor: "pointer"}} className="fa fa-trash" onClick={toggleModal}/>
-            {showModal && <DeleteConfirmModal callback={deleteApartment}/>}
+            <i style={{cursor: "pointer"}} className="fa fa-trash" onClick={() => dispatchModal({type: SHOW_MODAL, payload: () => <DeleteConfirmModal callback={deleteApartment}/>})}/>
+
             </>
         )
 }

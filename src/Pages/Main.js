@@ -4,6 +4,8 @@ import landingPage from "./landingPage"
 import homePageAdmin from "./homePageAdmin";
 import homePageConsort from "./homePageConsort";
 
+export const BASE_URL = 'http://localhost:8080'
+
 const PrivateRoute = ({ adminPage: AdminPage,consortPage: ConsortPage, ...rest }) => (
     <Route {...rest} render={(props) => (
         window.sessionStorage.token !== undefined ?

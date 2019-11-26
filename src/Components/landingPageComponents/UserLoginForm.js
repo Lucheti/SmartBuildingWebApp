@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import {RegisterContext} from "../../Pages/landingPage";
 
-const useInput = () => {
+export const useInput = () => {
     const ref = useRef();
     const refValue = () => {
         return ref.current.value
@@ -14,35 +14,33 @@ export default function userLoginForm(){
     const [usernameRef, username] = useInput();
     const [passwordRef, password] = useInput();
     const register = React.useContext(RegisterContext);
+    const [error, setError] = React.useState(false)
 
     const handleLogin = e => {
         e.preventDefault();
-        fetch('http://192.168.0.185:8080/oauth/token?grant_type=password&username=' + username() + '&password=' + password(), {
+        fetch("http://localhost:8080/admins/login", {
             method: 'POST',
             headers: {
-                'Authorization': 'Basic ' + btoa('my-trusted-client:secret'),
-            }
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "email": username(),
+                "password": password(),
+            })
         })
-            .then(res => res.json())
-            .then(json => {
-                fetch("http://192.168.0.185:8080/admins/login", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': "Bearer " + json.access_token
-                    },
-                    body: JSON.stringify({
-                        "email": username(),
-                        "password": password(),
-                    })
-                }).then(res => res.json())
-
-                    .then(user => {
-                        window.sessionStorage.setItem('token', json.access_token);
-                        window.sessionStorage.setItem("id", user.id);
-                        window.sessionStorage.setItem("role", user.role);
-                        window.open("/home", "_self")
-                    })
+          .then(res => {
+            if (res.ok)
+              return res.json()
+            if (res.status !== 200)
+              setError(true)
+          })
+          .then(user => {
+            if (user && user.id) {
+              window.sessionStorage.setItem('token', "WASERDC-EDFVLPP-98UGVCD-PX9RFW8-PVCBPO");
+              window.sessionStorage.setItem("id", user.id);
+              window.sessionStorage.setItem("role", user.role);
+              window.open("/home", "_self")
+            }
             })
     };
 
@@ -50,6 +48,11 @@ export default function userLoginForm(){
     return (
         <div className="login">
             <h2>Sign In</h2>
+            {error &&
+            <div className={'error'}>
+              <p>Username or password are incorrect</p>
+            </div>
+            }
             <form>
                 <div className="input-group">
                     <input ref={usernameRef} type="text" name="" required="required" />

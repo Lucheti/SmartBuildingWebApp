@@ -12,7 +12,7 @@ function App (){
 
 
         return (
-            <div className="">
+            <div className="" style={{maxHeight: '100vh', overflow: 'hidden'}}>
                 <Main/>
             </div>
         )

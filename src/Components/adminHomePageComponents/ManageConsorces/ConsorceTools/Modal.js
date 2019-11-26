@@ -41,20 +41,6 @@ export default function MyModal({apartmentId}) {
 
     return (
         <div>
-            <i  style={{cursor: "pointer"}} className="far fa-caret-square-down" onClick={handleOpen}/>
-            <Modal
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
-                open={open}
-                onClose={handleClose}
-            >
-                <div style={modalStyle} className={classes.paper}>
-                    <h2 id="simple-modal-title">Information</h2>
-                    <p id="simple-modal-description">
-                       subtext
-                    </p>
-                </div>
-            </Modal>
         </div>
     );
 }

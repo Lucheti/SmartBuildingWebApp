@@ -1,10 +1,10 @@
 
 
 export const updateNotificationList = evt => {
-    fetch("http://192.168.0.185:8080/notifications/" + window.sessionStorage.id + "/" + window.sessionStorage.role,{
+    fetch("http://localhost:8080/notifications/" + window.sessionStorage.id + "/" + window.sessionStorage.role,{
         method: 'GET',
         headers: {
-            'Authorization': "Bearer " + window.sessionStorage.token
+
         }
     }).then(res => {
         if (res.ok) {
@@ -14,6 +14,6 @@ export const updateNotificationList = evt => {
             evt.setState({notifications: [] })
             evt.setState({notifications: data})
         })
-        .catch(e => window.open("/", "_self"))
+        // .catch(e => window.open("/", "_self"))
 
 };

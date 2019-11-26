@@ -17,10 +17,9 @@ export default class Chart extends Component {
 
 
     getConsorces = () => {
-        fetch("http://192.168.0.185:8080/admins/" + window.sessionStorage.id + "/consorce", {
+        fetch("http://localhost:8080/admins/" + window.sessionStorage.id + "/consorce", {
             method: 'GET',
             headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token
             }
         }).then(res => res.json())
             .then(data => {

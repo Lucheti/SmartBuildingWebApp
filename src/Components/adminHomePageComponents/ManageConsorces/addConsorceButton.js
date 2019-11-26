@@ -25,7 +25,6 @@ export default function AddConsorceButton({consorcesList}){
         fetch("http://localhost:8080/admins/"+window.sessionStorage.id+"/consorce",{
             method: 'POST',
             headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },

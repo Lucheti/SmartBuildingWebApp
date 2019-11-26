@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import Notification from "./Notification";
+import {Notification} from "./Notification";
 import {updateNotificationList} from "../functions/updateNotificationList";
 import ReportProblem from "../../consortHomePageComponents/ReportProblem";
+let base64 = require('base-64')
 
 
 export default class NotificationList extends Component {
@@ -120,6 +121,7 @@ export default class NotificationList extends Component {
                         <option value={"Importance"}/>
                     </datalist>
                 </div>
+               <Asd/>
                 <ul id="notification-list" className="notification-list" >
                     {updated && notifications && notifications.map((nofitication, i) =>
                         <>
@@ -135,4 +137,44 @@ export default class NotificationList extends Component {
             </div>
         )
     }
+}
+
+const Asd = () => {
+    const [image, setImage] = React.useState({})
+    React.useEffect(() =>{
+        console.log(image)
+        console.log(base64.decode(base64.encode(image)))
+
+    },[image])
+    const send = () => {
+
+        fetch('http://localhost:8080/notifications',{
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+            },
+            body: JSON.stringify({
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "apartment": {
+                    "id": "1"
+                },
+                "user": {
+                    "id": "7"
+                },
+                "category": {
+                    "name": "Water"
+                },
+                "image": image
+            })
+        })
+
+    }
+    return(
+      <div>
+          <input id={'asd'} type='file' onChange={ evt => {
+              evt.target.files[0].arrayBuffer().then( (val) => setImage(val))
+          }}/>
+          <button onClick={ send }>send</button>
+      </div>
+    )
 }

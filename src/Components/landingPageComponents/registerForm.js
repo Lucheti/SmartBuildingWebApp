@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Cell, Grid} from "react-mdl";
+import { BASE_URL } from '../../Pages/Main'
 
 const emailRegex = RegExp(
     /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -41,7 +42,7 @@ export default class RegisterForm extends Component {
     submitRegister = e => {
         e.preventDefault();
         if (formValid(this.state)) {
-        fetch('http://192.168.0.185:8080/register', {
+        fetch(BASE_URL+'/register', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

@@ -1,10 +1,15 @@
 import React from 'react'
+import { BASE_URL } from '../../../../Pages/Main'
+import { ModalContext } from '../../../../Pages/homePageAdmin'
+import { HIDE_MODAL } from '../../reducers/ModalReducer'
 
 export default function AlertConsorceForm({consorce ,update}) {
     const [category, setCategory] = React.useState("");
     const [description, setDescription] = React.useState("");
     const [categorys, setCategorys] = React.useState({});
     const [loaded, setLoaded] = React.useState(false);
+
+    const modalDispatch = React.useContext(ModalContext)
 
     React.useEffect(() => {
         getCategorys();
@@ -17,10 +22,9 @@ export default function AlertConsorceForm({consorce ,update}) {
 
     function addAlert(evt) {
         evt.preventDefault();
-        fetch("http://192.168.0.185:8080/alerts",{
+        fetch(BASE_URL + "/alerts",{
             method: 'POST',
             headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
@@ -36,6 +40,7 @@ export default function AlertConsorceForm({consorce ,update}) {
         }).then(res => {
             if (res.ok) {
                 emptyFields();
+                modalDispatch({type: HIDE_MODAL})
                 update();
             }
         })
@@ -43,14 +48,12 @@ export default function AlertConsorceForm({consorce ,update}) {
 
     function getCategorys(){
         if (!loaded) {
-            fetch("http://192.168.0.185:8080/categorys", {
+            fetch(BASE_URL + "/categorys", {
                 method: 'GET',
                 headers: {
-                    'Authorization': "Bearer " + window.sessionStorage.token
                 }
             }).then(res => res.json())
                 .then(data => {
-                    console.log(data)
                     setCategorys(data)
                     setLoaded(true)
                 })
@@ -61,9 +64,9 @@ export default function AlertConsorceForm({consorce ,update}) {
     return(
         <form className="consorce-form">
             <h4>Alert</h4>
-            <input value={category} type="text" placeholder="Click to choose"  required="required" onChange={ (evt) => {setCategory(evt.target.value)}} list="browsers"/>
+            <input value={category} type="text" placeholder="Choose Category"  required="required" onChange={ (evt) => {setCategory(evt.target.value)}} list="browsers"/>
             <datalist id="browsers">
-                {loaded && categorys.map( category => <option value={category.name}/>)}
+                {loaded && categorys && categorys.length > 0 && categorys.map( category => <option value={category.name}/>)}
             </datalist>
             <input value={description} name="descripion" type="text" placeholder="Write here" required="required" onChange={(evt) => {setDescription(evt.target.value)}}/>
             <input type="submit" value={"Add alert"} onClick={addAlert}/>

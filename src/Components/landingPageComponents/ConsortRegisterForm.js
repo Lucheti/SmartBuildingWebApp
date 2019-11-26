@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import SetPasswordBox from "./SetPasswordBox";
+import { BASE_URL } from '../../Pages/Main'
 
 export default class consortRegisterForm extends Component{
 
@@ -22,33 +23,21 @@ export default class consortRegisterForm extends Component{
 
     handleLogin = e => {
         e.preventDefault();
-        fetch('http://192.168.0.185:8080/oauth/token?grant_type=client_credentials', {
-            method: 'POST',
+        fetch(BASE_URL + "/apartments/" + this.state.consortCode, {
+            method: 'GET',
             headers: {
-                'Authorization': 'Basic ' + btoa('my-trusted-client:secret'),
             }
         }).then(res => res.json())
-            .then(json => {
-                fetch("http://192.168.0.185:8080/apartments/" + this.state.consortCode, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': "Bearer " + json.access_token
-                    }
-                }).then(res => res.json())
-                    .then(apartment => {
-                        window.sessionStorage.setItem('token', json.access_token);
-                        if (apartment.owner.password === null) {
-                            this.setState({
-                                setPassword: true,
-                                consortCode: "",
-                                user: apartment.owner
-                            })
-                        }else alert("code already used")
+            .then(apartment => {
+                window.sessionStorage.setItem('token', "P098UHN-6YGFR34-8UYTRF-765ES2");
+                if (apartment.owner.password === null) {
+                    this.setState({
+                        setPassword: true,
+                        consortCode: "",
+                        user: apartment.owner
                     })
-            }).catch(e => {
-                console.log(e)
-                alert("No apartment found for the given code")
-        })
+                }else alert("code already used")
+            })
     }
 
 

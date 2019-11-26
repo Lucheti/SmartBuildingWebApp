@@ -1,83 +1,60 @@
-import React, {Component} from 'react';
-import {UpdateApartmentsList} from '../Consorce'
+import React from 'react';
+import { BASE_URL } from '../../../../Pages/Main'
+import { useInput } from '../../../landingPageComponents/UserLoginForm'
+import { ModalContext } from '../../../../Pages/homePageAdmin'
+import { HIDE_MODAL } from '../../reducers/ModalReducer'
+import '../../../../App.css'
 
-export default class AddApartmentForm extends Component {
+export const AddApartmentForm = ({id , updateApartmentList}) => {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            owner: "",
-            email: "",
-            apartmentCode: "",
-            pending: false,
-        }
-    }
+    const [ownerRef, ownerVal] = useInput()
+    const [emailRef, emailVal] = useInput()
+    const [apartmentCodeRef, apartmentCodeVal] = useInput()
+    const [pending, setPending] = React.useState()
+    const modalDispatch = React.useContext(ModalContext)
 
-    addApartment = evt => {
+
+    const addApartment = evt => {
         evt.preventDefault();
-        this.setState({pending: true})
-        fetch("http://192.168.0.185:8080/admins/consorce/" + this.props.id + "/apartment",{
+        setPending(true)
+        fetch(BASE_URL + "/admins/consorce/" + id + "/apartment",{
             method: "POST",
             headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 "owner": {
-                    "email": this.state.email,
-                    "name": this.state.owner,
+                    "email": emailVal(),
+                    "name": ownerVal(),
                     "role": "consort"
                 },
-                "apartmentCode": this.state.apartmentCode
+                "apartmentCode":apartmentCodeVal()
             })
-        }).then(res => res.json())
-            .then(data => {
-                console.log(data)
-                this.updateApartmentList();
-                this.resetFields()
-                this.setState({pending: false})
-            })
-    }
-
-    resetFields = () => {
-        this.setState({
-            owner: "",
-            email: "",
-            apartmentCode: ""
+        }).then(() => {
+            updateApartmentList();
+            resetFields()
+            setPending(false)
+            modalDispatch({type: HIDE_MODAL})
         })
     }
 
-    updateField = evt => {
-        this.setState({
-            [evt.target.name] : evt.target.value
-        })
+    const resetFields = () => {
+        ownerRef.current.value = ''
+        emailRef.current.value = ''
+        apartmentCodeRef.current.value = ''
     }
 
-    updateApartmentList = () => {};
 
+    return (
+            <form className="consorce-form">
+                {pending && <h4 style={{color: "red"}}>Sending Email</h4>}
+                <h4>New Apart</h4>
+                <input ref={ownerRef} type="text" placeholder="Owner" required="required"/>
+                <input ref={apartmentCodeRef} type="text" placeholder="ApartmentCode" required="required"/>
+                <input ref={emailRef} type="text" placeholder="Email" required="required"/>
+                <input type="submit" value={"Add apartment"} onClick={  addApartment }/>
+            </form>
+    )
 
-    render() {
-            const {owner, email, apartmentCode, pending} = this.state;
-        return (
-            <UpdateApartmentsList.Consumer>
-                {
-                    value => {
-                    this.updateApartmentList = value;
-
-                        return(
-                        <form className="consorce-form">
-                            {pending && <h4 style={{color: "red"}}>Sending Email</h4>}
-                            <h4>New Apart</h4>
-                            <input name="owner" type="text" placeholder="owner {ej: lucas}" value={owner} onChange={this.updateField} required="required"/>
-                            <input name="apartmentCode" type="text" placeholder="apartmentCode {ej: 1A}" value={apartmentCode} onChange={this.updateField} required="required"/>
-                            <input name="email" type="text" placeholder="email {ej: a@a.com}" value={email} onChange={this.updateField} required="required"/>
-                            <input type="submit" value={"Add apt"} onClick={this.addApartment}/>
-                        </form>
-                        )
-                    }
-                }
-            </UpdateApartmentsList.Consumer>
-        )
-    }
 }

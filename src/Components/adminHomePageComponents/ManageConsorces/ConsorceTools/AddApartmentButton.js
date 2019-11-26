@@ -1,24 +1,22 @@
 import React, {Component} from 'react';
+import { ModalContext } from '../../../../Pages/homePageAdmin'
+import { SHOW_MODAL } from '../../reducers/ModalReducer'
+import {AddApartmentForm} from './AddApartmentForm'
+import { ApartmentsContext } from '../Consorce'
 
-export default class AddApartmentButton extends Component {
+export const AddApartmentButton = ({id}) => {
 
-    constructor(props) {
-        super(props);
-    }
+    const modalDispatch = React.useContext(ModalContext)
+    const { update } = React.useContext(ApartmentsContext)
 
 
-    toggle = evt => {
-        evt.preventDefault();
-        this.props.consorce.setState(prev => {
-            return {
-                showAddApartmentForm: !prev.showAddApartmentForm
-            }
-        })
-    }
+    return (
+        <input value="Add apt" type="submit"
+               onClick={() =>
+                 modalDispatch({type: SHOW_MODAL,
+                 payload: () => <AddApartmentForm updateApartmentList={update} id={id}/>}
+                 )}
+        />
+    )
 
-    render() {
-        return (
-            <input value="Add apt" type="submit" onClick={this.toggle}/>
-        )
-    }
 }

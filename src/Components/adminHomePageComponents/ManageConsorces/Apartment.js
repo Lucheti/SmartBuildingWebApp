@@ -2,30 +2,33 @@ import React, {Component} from 'react';
 import DeleteApartmentButton from "./DeleteApartmentButton";
 import DisplayApartmentInfoButton from "./ConsorceTools/DisplayApartmentInfoButton";
 
-export default class Apartment extends Component {
+export const Apartment = ({apartment}) => {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            apartment: props.apartment,
-        }
-    }
+    const {owner,apartmentCode,id} = apartment;
+    const {name} = owner;
+    return (
+        <li  style={{display: 'flex', flexDirection: 'column',justifyContent: 'space-around'}}>
+          <div style={{display: 'flex', justifyContent: 'space-around'}}>
+            <div>{apartmentCode}</div>
+            <div>{name}</div>
+            <div>
+              <i  style={{cursor: "pointer"}} className="far fa-caret-square-down" />
+            </div>
+            <div>
+                <DeleteApartmentButton apartmentId={id}/>
+            </div>
+          </div>
+          <ApartmentDetails apartment={apartment}/>
+        </li>
 
-    render() {
-        const {apartment} = this.state;
-        const {owner,apartmentCode,id} = apartment;
-        const {name} = owner;
-        return (
-            <li style={{flex:1, flexDirection:"row"}}>
-                <div style={{flex:1}} >{apartmentCode}</div>
-                <div style={{flex:1}}>{name}</div>
-                <div style={{flex:1}}>
-                    <DisplayApartmentInfoButton apartmentId={id}/>
-                </div>
-                <div style={{flex:1}}>
-                    <DeleteApartmentButton apartmentId={id}/>
-                </div>
-            </li>
-        )
-    }
+    )
+
+}
+
+const ApartmentDetails = ({apartment}) => {
+  return(
+    <div>
+      <p>{apartment.consorce.user.name}</p>
+    </div>
+  )
 }

@@ -1,14 +1,14 @@
 import React from 'react';
+import { BASE_URL } from '../../../Pages/Main'
 
 
 export default function Alert({alert, update}) {
 
     function dismissAlert(){
 
-        fetch("http://192.168.0.185:8080/alerts",{
+        fetch(BASE_URL + "/alerts",{
             method: 'DELETE',
             headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },

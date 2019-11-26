@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
-import Apartment from "./Apartment";
+import {Apartment} from "./Apartment";
 import {Cell, Grid} from "react-mdl";
-import ConsorceTools from "./ConsorceTools/ConsorceTools";
-import AddApartmentForm from "./ConsorceTools/AddApartmentForm";
+import {ConsorceTools} from "./ConsorceTools/ConsorceTools";
+import {AddApartmentForm} from "./ConsorceTools/AddApartmentForm";
 import AlertConsorceForm from "./ConsorceTools/AlertConsorceForm";
 import Alert from "./Alert";
+import { BASE_URL } from '../../../Pages/Main'
 
-export const UpdateApartmentsList = React.createContext();
+export const ApartmentsContext = React.createContext();
 
-export const ShowAlertConsorceForm = React.createContext();
+export const AlertContext = React.createContext();
 
 
 export default class Consorce extends Component {
@@ -31,10 +32,9 @@ export default class Consorce extends Component {
     }
 
     updateApartmentList = () =>{
-        fetch("http://192.168.0.185:8080/admins/consorce/"+this.state.consorce.id+"/apartment",{
+        fetch(BASE_URL + "/admins/consorce/"+this.state.consorce.id+"/apartment",{
             method: 'GET',
             headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token
             }
         })
             .then(res => res.json())
@@ -44,10 +44,9 @@ export default class Consorce extends Component {
     };
 
     getAlerts = () => {
-        fetch("http://192.168.0.185:8080/alerts/" + this.state.consorce.id,{
+        fetch(BASE_URL + "/alerts/" + this.state.consorce.id,{
             method: 'GET',
             headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token
             }
         }).then(res => res.json())
             .then(data => {
@@ -63,6 +62,9 @@ export default class Consorce extends Component {
     toggleShowAlertConsorceForm = () =>{
         this.setState(prev => {return {showAlertConsorceForm: !prev.showAlertConsorceForm}})
     }
+    toggleApartmentList = () => {
+        this.setState( prev => {return {showApartments: !prev.showApartments}})
+    }
 
 
     render() {
@@ -73,26 +75,25 @@ export default class Consorce extends Component {
         const building = "building building"+(i % 8);
         return (
             <div className={consorceItem}>
-                <UpdateApartmentsList.Provider value={this.updateApartmentList}>
-                    <ShowAlertConsorceForm.Provider value={this.toggleShowAlertConsorceForm}>
+                <ApartmentsContext.Provider value={{update: this.updateApartmentList, toggle: this.toggleApartmentList, showApartments: this.state.showApartments}}>
+                    <AlertContext.Provider value={{update: this.getAlerts, consorce: consorce}}>
                         <div className={building}/>
                         <div className="title-highlighter">
                             <h2>{name}</h2>
+
                             <ConsorceTools apartmentsList={this} consorce={consorce}/>
+
                             <ul style={{padding: 0}}>
                                 {alerts.map((alert, i) => (<Alert alert={alert} update={this.getAlerts}/>))}
                             </ul>
-
-                            {showAddApartmentForm && <AddApartmentForm id={consorce.id}/>}
-                            {showAlertConsorceForm && <AlertConsorceForm consorce={consorce} update={this.getAlerts}/>}
 
                             {showApartments &&
                             <ul className="apartments">
                                 {apartments.map(apartment => (<Apartment key={apartment.id} apartment={apartment}/>))}
                             </ul>}
                         </div>
-                    </ShowAlertConsorceForm.Provider>
-                </UpdateApartmentsList.Provider>
+                    </AlertContext.Provider>
+                </ApartmentsContext.Provider>
             </div>
         )
     }

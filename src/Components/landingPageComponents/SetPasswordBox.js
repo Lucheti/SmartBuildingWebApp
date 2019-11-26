@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { BASE_URL } from '../../Pages/Main'
 
 export default class SetPasswordBox extends Component {
 
@@ -18,12 +19,11 @@ export default class SetPasswordBox extends Component {
     setPassword = e => {
         e.preventDefault()
         this.updateUser()
-        fetch("http://192.168.0.185:8080/users",{
+        fetch(BASE_URL + "/users",{
             method: "PUT",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': "Bearer " + window.sessionStorage.token
             },
             body: JSON.stringify({
                 "id": this.state.user.id,

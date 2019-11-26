@@ -101,6 +101,16 @@
     box-shadow: rgba(0,0,0,0.5) 0 0 10px;
 
 }
+
+.login .error{
+    background: rgba(255, 66, 86, .5);
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.login .error p {
+    margin: 0;
+}
+
 .login h2
 {
     margin: 0 0 20px;
@@ -348,6 +358,16 @@
 }
 /*NOTIFICATION DETAILS*/
 
+.notification-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-details p {
+    text-align: left;
+
+}
+
 .notification-details span{
     font-weight: bolder;
 }
@@ -429,19 +449,22 @@
 .consorces li input[type="checkbox"]{
 }
 
-.consorces .consorce-form{
-    align-content: center;
+.consorce-form{
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    margin: 0;
+    width: 25vw;
 }
 
-.consorces .consorce-form input{
-    margin: 1vh auto 0 auto;
-    display: block;
-    padding: 0.5em 0.25em;
-    width: 20vw;
+.consorce-form input{
+    margin: 1rem;
+    padding: 1rem;
+    width: 80%;
     font-size: 2vh;
 }
-.consorces .consorce-form input[type="submit"]{
+.consorce-form input[type="submit"]{
     width: 10vw;
 }
 

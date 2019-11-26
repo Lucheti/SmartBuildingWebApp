@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {asd, updateNotificationList} from "../functions/updateNotificationList";
+import {updateNotificationList} from "../functions/updateNotificationList";
 
 export default class UpdateNotificationStateButton extends Component {
 
@@ -15,11 +15,11 @@ export default class UpdateNotificationStateButton extends Component {
         fetch("http://localhost:8080/state/" + this.state.notification.state.id,{
             method: 'GET',
             headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token
             }
         }).then(res => res.json())
             .then(data => {
                 this.setState({nextState: data.status})})
+          .catch(err => console.log(err))
     }
 
     updateState = e => {
@@ -27,7 +27,6 @@ export default class UpdateNotificationStateButton extends Component {
         fetch("http://localhost:8080/notifications", {
             method: "PUT",
             headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
@@ -45,7 +44,6 @@ export default class UpdateNotificationStateButton extends Component {
         fetch('http://localhost:8080/notifications/' + this.state.notification.id, {
             method: 'DELETE',
             headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },

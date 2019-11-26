@@ -1,40 +1,33 @@
 import React, {Component} from 'react';
 import Chart from "../../Test/Chart";
 
-export default class GeneralView extends Component {
-
-    constructor(props){
-        super(props)
-        this.state = {
-            admin: ""
+const getAdminInfo = () => {
+    return fetch("http://localhost:8080/admins/" + window.sessionStorage.id, {
+        method: 'GET',
+        headers: {
         }
-    }
+    })
 
-    getAdminInfo = () => {
-        fetch("http://192.168.0.185:8080/admins/" + window.sessionStorage.id, {
-            method: 'GET',
-            headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                this.setState({admin: data.name})
-            })
-    }
+}
 
-    componentWillMount() {
-        this.getAdminInfo();
-    }
+export const GeneralView = () => {
 
+    const [admin, setAdmin] = React.useState('')
 
-    render() {
+    React.useEffect(() => {
+        getAdminInfo()
+          .then(res => res.json())
+          .then(data => setAdmin(data.name))
+        for (let a of document.getElementsByTagName('g')){
+            a.parentNode.removeChild(a)
+        }
+    },[])
 
-        return (
-            <h1>
-                {"Hello " + this.state.admin + ","}
-                <Chart/>
-            </h1>
-        )
-    }
+    return (
+        <h1>
+            {"Hello " + admin + ","}
+            <Chart/>
+        </h1>
+    )
+
 }

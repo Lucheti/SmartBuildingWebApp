@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Alert from "./Alert";
+import { BASE_URL } from '../../Pages/Main'
 
 
 export default function ConsortAlerts(){
@@ -10,10 +11,9 @@ export default function ConsortAlerts(){
 
     function getAlerts(){
         if (!loaded) {
-            fetch("http://192.168.0.185:8080/alerts/" + window.sessionStorage.id, {
+            fetch(BASE_URL + "/alerts/" + window.sessionStorage.id, {
                 method: 'GET',
                 headers: {
-                    'Authorization': "Bearer " + window.sessionStorage.token
                 }
             }).then(res => res.json())
                 .then(data => {

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {NotiList} from "../adminHomePageComponents/Notifications/NotificationList";
 import {updateNotificationList} from "../adminHomePageComponents/functions/updateNotificationList";
+import { BASE_URL } from '../../Pages/Main'
 
 export default class ReportProblem extends Component {
 
@@ -28,10 +29,9 @@ export default class ReportProblem extends Component {
 
     notifyProblem = evt =>{
         evt.preventDefault();
-        fetch('http://192.168.0.185:8080/notifications', {
+        fetch(BASE_URL + '/notifications', {
             method: 'POST',
             headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
@@ -56,10 +56,9 @@ export default class ReportProblem extends Component {
     }
 
     getCategorys = () => {
-        fetch("http://192.168.0.185:8080/categorys",{
+        fetch(BASE_URL + "/categorys",{
             method: 'GET',
             headers: {
-                'Authorization': "Bearer " + window.sessionStorage.token
             }
         }).then(res => res.json())
             .then(data => {
