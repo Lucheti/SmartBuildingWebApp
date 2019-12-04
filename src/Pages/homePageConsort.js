@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Spring, Transition} from "react-spring/renderprops";
 import {Button, Cell, Grid} from "react-mdl";
 import {logout} from "../Components/generalFunctions/logout";
-import NotificationList from "../Components/adminHomePageComponents/Notifications/NotificationList";
+import { NotificationList } from '../Components/adminHomePageComponents/Notifications/NotificationList'
 import ConsortAlerts from "../Components/consortHomePageComponents/ConsortAlerts";
 
 

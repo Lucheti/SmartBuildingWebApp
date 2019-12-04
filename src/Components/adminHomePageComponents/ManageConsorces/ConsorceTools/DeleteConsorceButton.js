@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {UpdateConsorcesList} from "../ManageConsorces";
 import DeleteConfirmModal from "../DeleteConfirmModal";
 import { BASE_URL } from '../../../../Pages/Main'
-import { ModalContext } from '../../../../Pages/homePageAdmin'
-import { SHOW_MODAL } from '../../reducers/ModalReducer'
+import { RenderContext } from '../../../../Pages/homePageAdmin'
+import { SHOW_MODAL } from '../../reducers/RenderReducer'
 
 export default function DeleteConsorceButton({id}) {
     const updateList = React.useContext(UpdateConsorcesList)
-    const modalDispatch = React.useContext(ModalContext)
+    const {dispatch: modalDispatch} = React.useContext(RenderContext)
 
     const deleteConsorce = () => {
         fetch(BASE_URL + "/admins/consorce/" + id, {
@@ -15,21 +15,13 @@ export default function DeleteConsorceButton({id}) {
             headers: {
             }
         })
-          .then(res => {
-              if (res.ok) {
-                  updateList()
-              }
-          })
+          .then(() => updateList() )
     }
 
+    const submit = () => modalDispatch({type: SHOW_MODAL, payload: () => <DeleteConfirmModal callback={deleteConsorce}/>})
 
     return (
-        <>
-            <input type="submit" value="Delete"
-                   onClick={() => modalDispatch({type: SHOW_MODAL,
-                       payload: () => <DeleteConfirmModal callback={deleteConsorce}/>
-                   })}/>
-        </>
+            <button onClick={ submit }> Delete </button>
 
     )
 }

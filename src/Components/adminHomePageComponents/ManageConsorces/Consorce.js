@@ -1,100 +1,82 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Apartment} from "./Apartment";
-import {Cell, Grid} from "react-mdl";
 import {ConsorceTools} from "./ConsorceTools/ConsorceTools";
-import {AddApartmentForm} from "./ConsorceTools/AddApartmentForm";
-import AlertConsorceForm from "./ConsorceTools/AlertConsorceForm";
 import Alert from "./Alert";
 import { BASE_URL } from '../../../Pages/Main'
+import { useMoreInfo } from '../../utils/useMoreInfo'
+import { Hr } from '../../utils/Hr'
+import { useBoolean } from '../../utils/useBoolean'
 
 export const ApartmentsContext = React.createContext();
 
 export const AlertContext = React.createContext();
 
 
-export default class Consorce extends Component {
+const Consorce = ({consorce}) => {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            consorce: props.consorce,
-            apartments: [],
-            alerts: [],
-            showApartments: false,
-            showAddApartmentForm: false,
-            showAlertConsorceForm: false
-        }
-    }
+    const [apartments, setApartments] = React.useState([])
+    const [alerts, setAlerts] = React.useState([])
+    const [showApartments, toggleShowApartments] = useBoolean()
 
-    componentWillMount() {
-        this.updateApartmentList();
-        this.getAlerts();
-    }
+    React.useEffect(() => {
+        updateApartmentList()
+        getAlerts()
+    },[])
 
-    updateApartmentList = () =>{
-        fetch(BASE_URL + "/admins/consorce/"+this.state.consorce.id+"/apartment",{
-            method: 'GET',
-            headers: {
-            }
-        })
-            .then(res => res.json())
-            .then(apartments => {
-                this.setState({apartments: apartments})
-            })
+    const updateApartmentList = () =>{
+        fetch(BASE_URL + "/admins/consorce/" + consorce.id + "/apartment")
+          .then(res => res.json())
+          .then(apartments => setApartments(apartments))
     };
 
-    getAlerts = () => {
-        fetch(BASE_URL + "/alerts/" + this.state.consorce.id,{
-            method: 'GET',
-            headers: {
-            }
-        }).then(res => res.json())
-            .then(data => {
-                if(data.length > 0) {
-                    this.setState({alerts: data})
-                }else{
-                    this.setState({alerts: []});
-                }
-                })
-
+    const getAlerts = () => {
+        fetch(BASE_URL + "/alerts/" + consorce.id)
+          .then(res => res.json())
+          .then(data => setAlerts(data))
     }
 
-    toggleShowAlertConsorceForm = () =>{
-        this.setState(prev => {return {showAlertConsorceForm: !prev.showAlertConsorceForm}})
-    }
-    toggleApartmentList = () => {
-        this.setState( prev => {return {showApartments: !prev.showApartments}})
-    }
+    const {name} = consorce;
+    const consorceItem = "consorce-item" + (showApartments? " open " : " ")
 
+    return (
+        <div className={consorceItem}>
+            <ApartmentsContext.Provider value={{update: updateApartmentList, toggle: toggleShowApartments, showApartments: showApartments}}>
+                <AlertContext.Provider value={{update: getAlerts, consorce: consorce}}>
 
-    render() {
-        const {consorce,apartments,showApartments,showAddApartmentForm,showAlertConsorceForm,alerts} = this.state;
-        const {name} = consorce;
-        const {i} = this.props;
-        const consorceItem = "consorce-item" + (showApartments? " open " : " ")
-        const building = "building building"+(i % 8);
-        return (
-            <div className={consorceItem}>
-                <ApartmentsContext.Provider value={{update: this.updateApartmentList, toggle: this.toggleApartmentList, showApartments: this.state.showApartments}}>
-                    <AlertContext.Provider value={{update: this.getAlerts, consorce: consorce}}>
-                        <div className={building}/>
-                        <div className="title-highlighter">
-                            <h2>{name}</h2>
+                    <div className={'building'} style={{backgroundImage: 'url("'+ consorce.image +'")'}}/>
 
-                            <ConsorceTools apartmentsList={this} consorce={consorce}/>
+                    <div className="title-highlighter">
 
-                            <ul style={{padding: 0}}>
-                                {alerts.map((alert, i) => (<Alert alert={alert} update={this.getAlerts}/>))}
+                        <h2>{name}</h2>
+                        <ConsorceTools consorce={consorce}/>
+
+                        <Hr/>
+
+                        {alerts.length > 0 &&
+                            <ul style={{padding: 0, width: '100%', margin: 0}}>
+                                {alerts.map((alert, i) => (
+                                    <>
+                                        <Alert key={i} alert={alert} update={ getAlerts }/>
+                                        { i !== alerts.length && <hr/>}
+                                    </>
+                                  ))}
                             </ul>
+                        }
 
-                            {showApartments &&
-                            <ul className="apartments">
-                                {apartments.map(apartment => (<Apartment key={apartment.id} apartment={apartment}/>))}
-                            </ul>}
-                        </div>
-                    </AlertContext.Provider>
-                </ApartmentsContext.Provider>
-            </div>
-        )
-    }
+                        <ul className="apartments" style={useMoreInfo(showApartments)}>
+                            {apartments.length > 0?
+                              apartments.map(apartment => (<Apartment key={apartment.id} apartment={apartment}/>))
+                                :
+                              <h4 style={{color: 'rgba(0,0,0,.2)', textAlign: 'center', margin: 0}}>No apartments yet added for this consorce</h4>
+                            }
+                        </ul>
+
+                    </div>
+
+                </AlertContext.Provider>
+            </ApartmentsContext.Provider>
+        </div>
+    )
+
 }
+export default React.memo(Consorce)

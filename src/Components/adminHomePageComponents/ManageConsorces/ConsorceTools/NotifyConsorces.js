@@ -1,15 +1,14 @@
 import React from 'react'
 import {AlertContext} from "../Consorce";
-import { ModalContext } from '../../../../Pages/homePageAdmin'
-import { SHOW_MODAL } from '../../reducers/ModalReducer'
+import { RenderContext } from '../../../../Pages/homePageAdmin'
+import { SHOW_MODAL } from '../../reducers/RenderReducer'
 import AlertConsorceForm from './AlertConsorceForm'
 
 export default function NotifyConsorces(){
 
-    const modalDispatch = React.useContext(ModalContext);
+    const {dispatch: modalDispatch} = React.useContext(RenderContext);
     const {update: getAlerts, consorce} = React.useContext(AlertContext)
+    const handle = () => modalDispatch({type: SHOW_MODAL, payload: () => <AlertConsorceForm consorce={consorce} update={getAlerts}/>})
 
-    return <input type={"submit"} value={"Alert Consorces"} onClick={() => modalDispatch({type: SHOW_MODAL, payload: () => <AlertConsorceForm consorce={consorce} update={getAlerts}/>})}/>
-
-
+    return <button onClick={ handle }>Alert Consorces</button>
 }

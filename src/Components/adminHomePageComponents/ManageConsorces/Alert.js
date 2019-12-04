@@ -15,8 +15,7 @@ export default function Alert({alert, update}) {
             body: JSON.stringify({
                 ...alert
             })
-        }).then(res => {
-            if (res.ok){update()}})
+        }).then(() => update())
     }
 
     return (

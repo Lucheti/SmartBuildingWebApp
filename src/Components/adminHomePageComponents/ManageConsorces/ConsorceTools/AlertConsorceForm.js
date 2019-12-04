@@ -1,7 +1,7 @@
 import React from 'react'
 import { BASE_URL } from '../../../../Pages/Main'
-import { ModalContext } from '../../../../Pages/homePageAdmin'
-import { HIDE_MODAL } from '../../reducers/ModalReducer'
+import { RenderContext } from '../../../../Pages/homePageAdmin'
+import { HIDE_MODAL } from '../../reducers/RenderReducer'
 
 export default function AlertConsorceForm({consorce ,update}) {
     const [category, setCategory] = React.useState("");
@@ -9,7 +9,7 @@ export default function AlertConsorceForm({consorce ,update}) {
     const [categorys, setCategorys] = React.useState({});
     const [loaded, setLoaded] = React.useState(false);
 
-    const modalDispatch = React.useContext(ModalContext)
+    const {dispatch: modalDispatch} = React.useContext(RenderContext)
 
     React.useEffect(() => {
         getCategorys();
@@ -69,7 +69,7 @@ export default function AlertConsorceForm({consorce ,update}) {
                 {loaded && categorys && categorys.length > 0 && categorys.map( category => <option value={category.name}/>)}
             </datalist>
             <input value={description} name="descripion" type="text" placeholder="Write here" required="required" onChange={(evt) => {setDescription(evt.target.value)}}/>
-            <input type="submit" value={"Add alert"} onClick={addAlert}/>
+            <input type="submit" value={"Add alert"} onClick={ addAlert }/>
         </form>
     )
 }

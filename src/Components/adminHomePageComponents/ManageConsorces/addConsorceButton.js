@@ -3,14 +3,12 @@ import {UpdateConsorcesList} from './ManageConsorces'
 
 const useInput = () => {
     const ref = useRef();
-    const refValue = () => {
-        return ref.current.value
-    };
+    const refValue = () => ref.current.value
     return [ref , refValue]
 }
 
 
-export default function AddConsorceButton({consorcesList}){
+export default function AddConsorceButton(){
 
     const updateList = React.useContext(UpdateConsorcesList);
 
@@ -18,10 +16,14 @@ export default function AddConsorceButton({consorcesList}){
     const [consorceAdressRef, consorceAdress] = useInput();
     const [consorceZipRef, consorceZip] = useInput();
     const [consorceNumberRef, consorceNumber] = useInput();
+    const [location, setLocation] = React.useState({
+        lat: -1,
+        lng: -1
+    })
 
+    React.useEffect(() => console.log(location),[location])
 
-    const addConsorce = e => {
-        e.preventDefault();
+    const addConsorce = () => {
         fetch("http://localhost:8080/admins/"+window.sessionStorage.id+"/consorce",{
             method: 'POST',
             headers: {
@@ -30,26 +32,57 @@ export default function AddConsorceButton({consorcesList}){
             },
             body: JSON.stringify({
                 "name": consorceName(),
+                "image": image,
+                "address": consorceAdress(),
+                "zip": consorceZip(),
+                "number": consorceNumber(),
+                "location": {
+                    "latitude": location.lat,
+                    "longitude": location.lng
+                }
+
             })
         })
             .then(res => {
                 if (res.ok){
-                    // consorceNameRef.clear();
                     updateList()
+                    clearInputs()
                 }
             }
             )
     };
 
+    const getPositionFromAddress = () => {
+        fetch('https://api.opencagedata.com/geocode/v1/json?q=' + consorceAdress() + '&key=4f2e8ad1d18f451793dd42490f6156e1&no_annotations=1&language=es')
+          .then(res => res.json())
+          .then( data => setLocation(data.results[0].geometry))
+    }
+
+    const clearInputs = () => {
+        consorceNameRef.current.value = ''
+        consorceAdressRef.current.value = ''
+        consorceNumberRef.current.value = ''
+        consorceZipRef.current.value = ''
+        setImage(undefined)
+    }
+
+    const [image, setImage] = React.useState(undefined)
+    const onChange = e =>{
+        let files = e.target.files
+        const reader = new FileReader()
+        reader.readAsDataURL(files[0])
+        reader.onload = e => setImage(e.target.result)
+    }
+
 
         return (
             <div className={'add-consorce'}>
                 <form>
-                    <div className={'file-upload'}>
+                    <div className={'file-upload'} style={image? {backgroundImage: 'url("'+ image +'")'} : {}}>
                         <label>
                             <i className={'fa fa-plus'}/>
                             Upload Img
-                            <input type="file" required="required"/>
+                            <input type="file" required="required" onChange={ e => onChange(e)}/>
                         </label>
                     </div>
                     <div className='inputs'>
@@ -61,7 +94,7 @@ export default function AddConsorceButton({consorcesList}){
 
                         <div className={'input-group'}>
                             <p>Adress</p>
-                            <input ref={consorceAdressRef} placeholder={'Adress'}/>
+                            <input ref={consorceAdressRef} placeholder={'Adress'} onBlur={ getPositionFromAddress }/>
                         </div>
 
                         <div className={'input-group'}>
@@ -74,8 +107,8 @@ export default function AddConsorceButton({consorcesList}){
                             <input ref={consorceNumberRef} placeholder={'Contact Number'}/>
                         </div>
 
-                        <div className={'submit-button'}>
-                            <input type="submit" value="Add Consorce" onClick={addConsorce} required="required"/>
+                        <div className={'submit-button'} style={{padding: '1rem'}}>
+                            <button onClick={ addConsorce } style={{background: 'black',color: 'white', padding: '.5rem' , fontSize: '1rem', cursor: 'pointer', border: 'none', textShadow: '0 0 5px rgba(255,255,255,.5)'}}>Add Consorce</button>
                         </div>
                     </div>
                 </form>

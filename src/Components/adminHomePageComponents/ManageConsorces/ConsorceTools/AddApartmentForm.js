@@ -1,8 +1,8 @@
 import React from 'react';
 import { BASE_URL } from '../../../../Pages/Main'
 import { useInput } from '../../../landingPageComponents/UserLoginForm'
-import { ModalContext } from '../../../../Pages/homePageAdmin'
-import { HIDE_MODAL } from '../../reducers/ModalReducer'
+import { RenderContext } from '../../../../Pages/homePageAdmin'
+import { HIDE_MODAL } from '../../reducers/RenderReducer'
 import '../../../../App.css'
 
 export const AddApartmentForm = ({id , updateApartmentList}) => {
@@ -11,7 +11,7 @@ export const AddApartmentForm = ({id , updateApartmentList}) => {
     const [emailRef, emailVal] = useInput()
     const [apartmentCodeRef, apartmentCodeVal] = useInput()
     const [pending, setPending] = React.useState()
-    const modalDispatch = React.useContext(ModalContext)
+    const {dispatch: modalDispatch} = React.useContext(RenderContext)
 
 
     const addApartment = evt => {

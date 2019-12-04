@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {NotiList} from "../adminHomePageComponents/Notifications/NotificationList";
-import {updateNotificationList} from "../adminHomePageComponents/functions/updateNotificationList";
 import { BASE_URL } from '../../Pages/Main'
 
 export default class ReportProblem extends Component {
@@ -49,7 +48,7 @@ export default class ReportProblem extends Component {
         })
             .then(res => {
                 if (res.ok) {
-                    updateNotificationList(this.props.list);
+                    // updateNotificationList(this.props.list);
                     this.emptyFields();
                 }
             } )

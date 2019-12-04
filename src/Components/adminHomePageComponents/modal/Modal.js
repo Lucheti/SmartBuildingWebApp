@@ -1,10 +1,10 @@
 import React from 'react'
-import { ModalContext } from '../../../Pages/homePageAdmin'
-import { HIDE_MODAL } from '../reducers/ModalReducer'
+import { RenderContext } from '../../../Pages/homePageAdmin'
+import { HIDE_MODAL } from '../reducers/RenderReducer'
 
 export const Modal = ({component: Component, condition}) => {
 
-  const dispatch = React.useContext(ModalContext)
+  const {dispatch} = React.useContext(RenderContext)
   const closeModal = () => dispatch({type: HIDE_MODAL});
 
   if (!condition) return null

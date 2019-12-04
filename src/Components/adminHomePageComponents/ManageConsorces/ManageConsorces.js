@@ -5,43 +5,31 @@ import { BASE_URL } from '../../../Pages/Main'
 export const UpdateConsorcesList = React.createContext();
 
 
-export class ManageConsorces extends Component {
+export const ManageConsorces = () => {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            consorces: []
-        }
-    }
+    const [consorces, setConsorces] = React.useState([])
 
-    componentWillMount() {
-        this.updateConsorcesList()
-    }
+    React.useEffect(() => updateConsorcesList(),[])
 
-    updateConsorcesList = () => {
+    const updateConsorcesList = () => {
         fetch(BASE_URL + "/admins/"+ window.sessionStorage.id +"/consorce", {
             method: 'GET',
             headers: {
             }
         }).then(res => res.json())
-            .then(data => this.setState({consorces: data}))
+            .then(data => setConsorces(data))
     }
 
-    render() {
-
-        var {consorces} = this.state;
-
-        return (
-            <UpdateConsorcesList.Provider value={this.updateConsorcesList}>
-                <div className="">
-                    <div className="consorces-wrapper">
-                        {consorces.map( (item, i) => <Consorce consorce={item} i={i}/>)}
-                        <AddConsorceButton/>
-                    </div>
+    return (
+        <UpdateConsorcesList.Provider value={ updateConsorcesList }>
+            <div className="">
+                <div className="consorces-wrapper">
+                    {consorces.map( (item, i) => <Consorce consorce={item} i={i}/>)}
+                    <AddConsorceButton/>
                 </div>
-            </UpdateConsorcesList.Provider>
+            </div>
+        </UpdateConsorcesList.Provider>
 
-        )
-    }
+    )
 
 }

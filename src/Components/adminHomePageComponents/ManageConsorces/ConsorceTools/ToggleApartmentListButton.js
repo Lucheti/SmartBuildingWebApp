@@ -1,5 +1,4 @@
 import React from 'react';
-import {toggleApartmentList} from "../../functions/toggleApartmentList";
 import { ApartmentsContext } from '../Consorce'
 
 export default function ToggleApartmentListButton(){
@@ -12,7 +11,8 @@ export default function ToggleApartmentListButton(){
     }
 
     return (
-        <input type="submit" value={showDetails ? "Hide apartments" : "Show apartments"} onClick={toggle}/>
+      <button onClick={toggle}>{showDetails ? "Hide apartments" : "Show apartments"}</button>
         )
 
 }
+

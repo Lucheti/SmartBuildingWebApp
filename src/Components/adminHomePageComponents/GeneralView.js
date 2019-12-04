@@ -7,8 +7,8 @@ const getAdminInfo = () => {
         headers: {
         }
     })
-
 }
+
 
 export const GeneralView = () => {
 
@@ -18,9 +18,6 @@ export const GeneralView = () => {
         getAdminInfo()
           .then(res => res.json())
           .then(data => setAdmin(data.name))
-        for (let a of document.getElementsByTagName('g')){
-            a.parentNode.removeChild(a)
-        }
     },[])
 
     return (

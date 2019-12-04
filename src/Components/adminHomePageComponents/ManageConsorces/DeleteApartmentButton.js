@@ -2,8 +2,8 @@ import React from 'react';
 import DeleteConfirmModal from "./DeleteConfirmModal";
 import {ApartmentsContext} from "./Consorce";
 import { BASE_URL } from '../../../Pages/Main'
-import { ModalContext } from '../../../Pages/homePageAdmin'
-import { SHOW_MODAL } from '../reducers/ModalReducer'
+import { RenderContext } from '../../../Pages/homePageAdmin'
+import { SHOW_MODAL } from '../reducers/RenderReducer'
 
 const useBoolan = (initialState) => {
     const [bool, setBool] = React.useState(initialState)
@@ -15,7 +15,7 @@ const useBoolan = (initialState) => {
 
 export default function DeleteApartmentButton({apartmentId}){
 
-    const dispatchModal = React.useContext(ModalContext)
+    const {dispatch: modalDispatch} = React.useContext(RenderContext)
     const {update} = React.useContext(ApartmentsContext)
 
     const deleteApartment = () => {
@@ -32,7 +32,7 @@ export default function DeleteApartmentButton({apartmentId}){
 
         return (
             <>
-            <i style={{cursor: "pointer"}} className="fa fa-trash" onClick={() => dispatchModal({type: SHOW_MODAL, payload: () => <DeleteConfirmModal callback={deleteApartment}/>})}/>
+            <i style={{cursor: "pointer"}} className="fa fa-trash" onClick={() => modalDispatch({type: SHOW_MODAL, payload: () => <DeleteConfirmModal callback={deleteApartment}/>})}/>
 
             </>
         )

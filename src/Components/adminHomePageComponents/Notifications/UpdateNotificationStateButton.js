@@ -1,28 +1,28 @@
 import React, {Component} from 'react';
-import {updateNotificationList} from "../functions/updateNotificationList";
+import { NotificationListContext } from './NotificationList'
 
-export default class UpdateNotificationStateButton extends Component {
+export const UpdateNotificationStateButton = ({notification}) => {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            notification: props.notification,
-            nextState: ""
-        }
-    }
+    const updateNotificationList = React.useContext(NotificationListContext)
+    const [nextState, setNextState] = React.useState("")
+    const {status} = notification.state;
 
-    getNextState = () => {
-        fetch("http://localhost:8080/state/" + this.state.notification.state.id,{
+
+    React.useEffect(() => {
+        getNextState()
+    },[])
+
+    const getNextState = () => {
+        fetch("http://localhost:8080/state/" + notification.state.id,{
             method: 'GET',
             headers: {
             }
         }).then(res => res.json())
-            .then(data => {
-                this.setState({nextState: data.status})})
+            .then(data => setNextState(data.status))
           .catch(err => console.log(err))
     }
 
-    updateState = e => {
+    const updateState = e => {
         e.preventDefault();
         fetch("http://localhost:8080/notifications", {
             method: "PUT",
@@ -31,49 +31,41 @@ export default class UpdateNotificationStateButton extends Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                ...this.state.notification
+                ...notification
             })
         }).then(res => {
             if (res.ok){
-                updateNotificationList(this.props.refresh)
+                updateNotificationList()
             }
         } )
     };
 
-    deleteNotification = () => {
-        fetch('http://localhost:8080/notifications/' + this.state.notification.id, {
+    const deleteNotification = () => {
+        fetch('http://localhost:8080/notifications/' + notification.id, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                ...this.state.notification
+                ...notification
             })
-    }).then(res => {
+        }).then(res => {
             if (res.ok){
-                updateNotificationList(this.props.refresh)
+                updateNotificationList()
             }
         } )
     }
 
-    componentWillMount() {
-        this.getNextState()
-    }
-
-    render() {
-
-        const {nextState} = this.state;
-        const {status} = this.state.notification.state;
 
         return (
             <>
             {status !== "solved" ?
-                <input value={"mark as " + nextState} type="submit" onClick={this.updateState}/>
+              <button onClick={ updateState }>{"mark as " + nextState}</button>
                 :
-                <input value={"delete"} type={"submit"} onClick={this.deleteNotification}/>
+              <button onClick={ deleteNotification }>delete</button>
             }
             </>
             )
-    }
+
 }
