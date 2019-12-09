@@ -8,7 +8,7 @@ const useInput = () => {
 }
 
 
-export default function AddConsorceButton(){
+export default function AddConsorceForm(){
 
     const updateList = React.useContext(UpdateConsorcesList);
 
@@ -53,9 +53,15 @@ export default function AddConsorceButton(){
     };
 
     const getPositionFromAddress = () => {
-        fetch('https://api.opencagedata.com/geocode/v1/json?q=' + consorceAdress() + '&key=4f2e8ad1d18f451793dd42490f6156e1&no_annotations=1&language=es')
-          .then(res => res.json())
-          .then( data => setLocation(data.results[0].geometry))
+        if (consorceAdress){
+            fetch('https://api.opencagedata.com/geocode/v1/json?q=' + consorceAdress() + '&key=4f2e8ad1d18f451793dd42490f6156e1&no_annotations=1&language=es')
+              .then(res => res.json())
+              .then( data => {
+                  if (data && data.results && data.results[0]){
+                  setLocation(data.results[0].geometry)
+                  }
+              })
+        }
     }
 
     const clearInputs = () => {
@@ -94,7 +100,7 @@ export default function AddConsorceButton(){
 
                         <div className={'input-group'}>
                             <p>Adress</p>
-                            <input ref={consorceAdressRef} placeholder={'Adress'} onBlur={ getPositionFromAddress }/>
+                            <input ref={consorceAdressRef} placeholder={'Adress (ej:Campus Universidad Austral, Pilar, Argentina)'} onBlur={ getPositionFromAddress }/>
                         </div>
 
                         <div className={'input-group'}>

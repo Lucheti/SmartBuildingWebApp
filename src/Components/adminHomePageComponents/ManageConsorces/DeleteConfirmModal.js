@@ -15,15 +15,13 @@ export default function DeleteConfirmModal({callback}) {
 
     return (
         <div>
-                <div>
-                    <h2>Confirm Delete Request</h2>
+                <div style={{padding: '0 1rem 1rem 1rem',display: "flex", flexDirection: 'column' ,justifyContent: 'center', alignItems: 'center', width: '30rem'}}>
+                    <h3>Confirm Delete Request</h3>
                     <p>Are you sure you want to delete?</p>
                     <p>This action can not be undone</p>
-                    <div style={{display: "flex", justifyContent: 'center'}}>
-                        <div onClick={ submit } style={{border: '2px solid red', borderRadius: '1.5rem' ,cursor: "pointer", color: 'red',height: 50,width: 150, display:"flex", alignItems: "center", justifyContent:"center", flexDirection:"row"}}>
-                            <p style={{marginBottom:0}}>Confirm Delete</p>
-                        </div>
-                    </div>
+                    <button onClick={ submit } style={{border: 'none',cursor: "pointer",background: 'red', color: 'white', padding: '.5rem', fontSize: '1.2rem', marginTop: '1rem'}}>
+                        Confirm Delete
+                    </button>
                 </div>
         </div>
     );

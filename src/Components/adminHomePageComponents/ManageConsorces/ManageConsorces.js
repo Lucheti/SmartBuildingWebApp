@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import AddConsorceButton from "./addConsorceButton";
+import AddConsorceForm from "./addConsorceForm";
 import Consorce from "./Consorce";
 import { BASE_URL } from '../../../Pages/Main'
 export const UpdateConsorcesList = React.createContext();
@@ -25,7 +25,7 @@ export const ManageConsorces = () => {
             <div className="">
                 <div className="consorces-wrapper">
                     {consorces.map( (item, i) => <Consorce consorce={item} i={i}/>)}
-                    <AddConsorceButton/>
+                    <AddConsorceForm/>
                 </div>
             </div>
         </UpdateConsorcesList.Provider>

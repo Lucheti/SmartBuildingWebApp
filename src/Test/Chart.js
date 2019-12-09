@@ -279,8 +279,8 @@ export default class Chart extends Component {
 
 export const RemoveIcon = () => {
     React.useEffect(() => {
-        const icon = document.getElementById("id-43-title");
+        const icon = document.querySelector("#chartdiv > div:nth-child(2) > svg > g > g:nth-child(2) > g:nth-child(2) > g > g:nth-child(3)");
         if (icon) icon.parentElement.remove()
     })
-    return <div/>
+    return null
 }
