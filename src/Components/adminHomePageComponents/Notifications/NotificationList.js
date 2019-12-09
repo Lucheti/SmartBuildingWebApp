@@ -19,16 +19,9 @@ export const NotificationList = () => {
           .then(data => { dispatch(updateNotifications(data)) })
     }
 
-    sortNotificationsByState = (stateId) =>{
-        this.state.notifications.sort((a, b) => {
-            if (a.state.id === stateId) {
-                return -1;
-            }
-            if (b.state.id === stateId){
-                return 1;
-            }
-            return 0;});
-    }
+    React.useEffect(() => {
+        updateNotificationList()
+    },[])
 
     const sort = (type) => dispatch(updateNotifications(sortNotifications(type, notifications)))
 
