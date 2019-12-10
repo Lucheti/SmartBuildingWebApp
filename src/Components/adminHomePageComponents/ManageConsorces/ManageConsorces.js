@@ -24,7 +24,7 @@ export const ManageConsorces = () => {
         <UpdateConsorcesList.Provider value={ updateConsorcesList }>
             <div className="">
                 <div className="consorces-wrapper">
-                    {consorces.map( (item, i) => <Consorce consorce={item} i={i}/>)}
+                    {consorces.map( (item, i) => <Consorce key={i} consorce={item} i={i}/>)}
                     <AddConsorceForm/>
                 </div>
             </div>

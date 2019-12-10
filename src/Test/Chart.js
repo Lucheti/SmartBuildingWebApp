@@ -25,7 +25,6 @@ export default class Chart extends Component {
             .then(data => {
                 this.setState({consorces: data})
                 this.showChart();
-                console.log(data)
             })
     }
 

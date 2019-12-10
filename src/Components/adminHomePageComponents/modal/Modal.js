@@ -13,7 +13,9 @@ export const Modal = ({component: Component, condition}) => {
     <div style={modalStyles}>
       <div id="backdrop" onClick={ closeModal } style={modalStyles}/>
       <div style={containerStyles} onClick={() => {}}>
-        <button style={modalButton} onClick={ closeModal }><i className={'fa fa-close'}/></button>
+        <div style={buttonContainer}>
+          <button style={modalButton} onClick={ closeModal }><i className={'fa fa-close'}/></button>
+        </div>
         <Component/>
       </div>
     </div>
@@ -36,12 +38,19 @@ const containerStyles = {
   position: 'relative',
   background: 'rgb(255,255,255)',
   boxShadow: '0 0 20px rgba(0,0,0,.5)',
-  borderRadius: '1rem',
-  padding: '2rem',
+  padding: '1rem 2rem',
+  display: 'flex',
+  flexDirection: 'column'
 }
 
 const modalButton = {
   border: 'none',
   background: 'none',
-  float: 'right'
+  float: 'right',
+  width: 'fit-content',
+  padding: '.5rem'
+}
+const buttonContainer = {
+  display: 'flex',
+  justifyContent: 'flex-end'
 }

@@ -20,8 +20,7 @@ export default function AddConsorceForm(){
         lat: -1,
         lng: -1
     })
-
-    React.useEffect(() => console.log(location),[location])
+    const [image, setImage] = React.useState(undefined)
 
     const addConsorce = () => {
         fetch("http://localhost:8080/admins/"+window.sessionStorage.id+"/consorce",{
@@ -47,6 +46,7 @@ export default function AddConsorceForm(){
                 if (res.ok){
                     updateList()
                     clearInputs()
+                    console.log(this)
                 }
             }
             )
@@ -72,23 +72,22 @@ export default function AddConsorceForm(){
         setImage(undefined)
     }
 
-    const [image, setImage] = React.useState(undefined)
     const onChange = e =>{
         let files = e.target.files
         const reader = new FileReader()
         reader.readAsDataURL(files[0])
         reader.onload = e => setImage(e.target.result)
+        e.target.value = ''
     }
 
 
         return (
             <div className={'add-consorce'}>
-                <form>
                     <div className={'file-upload'} style={image? {backgroundImage: 'url("'+ image +'")'} : {}}>
                         <label>
                             <i className={'fa fa-plus'}/>
                             Upload Img
-                            <input type="file" required="required" onChange={ e => onChange(e)}/>
+                            <input type="file" required="required" onChange={ onChange }/>
                         </label>
                     </div>
                     <div className='inputs'>
@@ -117,7 +116,6 @@ export default function AddConsorceForm(){
                             <button onClick={ addConsorce } style={{background: 'black',color: 'white', padding: '.5rem' , fontSize: '1rem', cursor: 'pointer', border: 'none', textShadow: '0 0 5px rgba(255,255,255,.5)'}}>Add Consorce</button>
                         </div>
                     </div>
-                </form>
 
             </div>
 

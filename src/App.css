@@ -861,21 +861,21 @@
     left: 0;
 }
 
-.add-consorce form{
+.add-consorce {
     display: flex;
     height: 100%;
 }
-.add-consorce form .inputs{
+.inputs{
     padding: 1rem;
     width: 50%;
 }
-.add-consorce form .inputs .input-group {
+.inputs .input-group {
     display: flex;
     padding: 1rem;
     font-size: larger;
 }
 
-.add-consorce form .inputs .input-group input{
+.inputs .input-group input{
     width: 60%;
     background: none;
     border: none;
@@ -883,20 +883,20 @@
     font-size: 1rem;
 }
 
-.add-consorce form .inputs .input-group p{
+.inputs .input-group p{
     width: 30%;
     text-align: left;
 }
 
-.add-consorce form .inputs .input-group > *{
+.inputs .input-group > *{
     margin: 0 1rem;
 }
 
-.add-consorce form .inputs .submit-button{
+.inputs .submit-button{
     display: flex;
     justify-content: center;
 }
-.add-consorce form .inputs .submit-button input{
+.inputs .submit-button input{
     font-size: 1rem;
     padding: .5rem;
 }

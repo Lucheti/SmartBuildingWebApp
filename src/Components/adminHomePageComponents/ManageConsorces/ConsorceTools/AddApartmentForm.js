@@ -4,6 +4,7 @@ import { useInput } from '../../../landingPageComponents/UserLoginForm'
 import { RenderContext } from '../../../../Pages/homePageAdmin'
 import { HIDE_MODAL } from '../../reducers/RenderReducer'
 import '../../../../App.css'
+import { Input } from '../../../utils/Input'
 
 export const AddApartmentForm = ({id , updateApartmentList}) => {
 
@@ -47,14 +48,20 @@ export const AddApartmentForm = ({id , updateApartmentList}) => {
 
 
     return (
-            <form className="consorce-form">
+            <div className="inputs" style={{width: 'unset'}}>
                 {pending && <h4 style={{color: "red"}}>Sending Email</h4>}
-                <h4>New Apart</h4>
-                <input ref={ownerRef} type="text" placeholder="Owner" required="required"/>
-                <input ref={apartmentCodeRef} type="text" placeholder="ApartmentCode" required="required"/>
-                <input ref={emailRef} type="text" placeholder="Email" required="required"/>
-                <input type="submit" value={"Add apartment"} onClick={  addApartment }/>
-            </form>
+                <h4 style={{textAlign: 'center', margin: 0}}>New Apartment</h4>
+                <div style={{padding: '1rem 0'}}>
+                    <Input label={'Owner'} placeholder={'Owner'} ref={ownerRef}/>
+                    <Input label={'Apartment Code'} placeholder={'ApartmentCode'} ref={apartmentCodeRef}/>
+                    <Input label={'Email'} placeholder={'Email'} ref={emailRef}/>
+                </div>
+
+                <div className={'submit-button'} style={{padding: '1rem'}}>
+                    <button onClick={ addApartment } style={{background: 'black',color: 'white', padding: '.5rem' , fontSize: '1rem', cursor: 'pointer', border: 'none', textShadow: '0 0 5px rgba(255,255,255,.5)'}}>Add apartment</button>
+                </div>
+            </div>
     )
 
 }
+
