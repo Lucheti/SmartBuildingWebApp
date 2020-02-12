@@ -25,7 +25,7 @@ export default function LandingPage() {
                     :
                     <UserLoginForm/>
                 }
-                <ConsortLoginForm/>
+                {/*<ConsortLoginForm/>*/}
             </div>
         </RegisterContext.Provider>
     );

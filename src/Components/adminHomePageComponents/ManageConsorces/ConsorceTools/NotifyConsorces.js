@@ -1,8 +1,8 @@
 import React from 'react'
 import {AlertContext} from "../Consorce";
-import { RenderContext } from '../../../../Pages/homePageAdmin'
 import { SHOW_MODAL } from '../../reducers/RenderReducer'
 import AlertConsorceForm from './AlertConsorceForm'
+import { RenderContext } from '../../../../App'
 
 export default function NotifyConsorces(){
 

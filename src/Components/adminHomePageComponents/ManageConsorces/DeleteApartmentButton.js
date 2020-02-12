@@ -2,8 +2,8 @@ import React from 'react';
 import DeleteConfirmModal from "./DeleteConfirmModal";
 import {ApartmentsContext} from "./Consorce";
 import { BASE_URL } from '../../../Pages/Main'
-import { RenderContext } from '../../../Pages/homePageAdmin'
 import { SHOW_MODAL } from '../reducers/RenderReducer'
+import { RenderContext } from '../../../App'
 
 const useBoolan = (initialState) => {
     const [bool, setBool] = React.useState(initialState)

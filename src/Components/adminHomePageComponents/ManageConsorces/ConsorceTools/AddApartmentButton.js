@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import { RenderContext } from '../../../../Pages/homePageAdmin'
+import React from 'react';
 import { SHOW_MODAL } from '../../reducers/RenderReducer'
 import {AddApartmentForm} from './AddApartmentForm'
 import { ApartmentsContext } from '../Consorce'
+import { RenderContext } from '../../../../App'
 
 export const AddApartmentButton = ({id}) => {
 

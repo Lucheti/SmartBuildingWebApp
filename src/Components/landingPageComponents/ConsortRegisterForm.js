@@ -45,10 +45,10 @@ export default class consortRegisterForm extends Component{
     render() {
         const {consortCode,setPassword,user} = this.state;
         return (
-            <div className="container">
+            <div>
                 <div className="search">
                     <input value={consortCode} name="consortCode" type="text" placeholder="Consort code..." onChange={this.updateConsortCode}/>
-                    <div className="icon" onClick={this.handleLogin}/>
+                    <button style={{height: '50%', marginLeft: '1rem', fontWeight: 'bolder', fontSize: '15px', border: 'none', outline: 'none', cursor: 'pointer'}} onClick={this.handleLogin}> Send </button>
                 </div>
                 {setPassword && <SetPasswordBox toggle={this.toggleSetPassword} user={user}/>}
             </div>

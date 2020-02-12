@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
 import { NotificationListContext } from './NotificationList'
+import { RenderContext } from '../../../App'
+import { changeModalComponentTo } from '../reducers/RenderReducer'
+import DeleteConfirmModal from '../ManageConsorces/DeleteConfirmModal'
 
 export const UpdateNotificationStateButton = ({notification}) => {
 
+    const {dispatch} = React.useContext(RenderContext)
     const updateNotificationList = React.useContext(NotificationListContext)
     const [nextState, setNextState] = React.useState("")
     const {status} = notification.state;
@@ -10,7 +14,7 @@ export const UpdateNotificationStateButton = ({notification}) => {
 
     React.useEffect(() => {
         getNextState()
-    },[])
+    },[notification])
 
     const getNextState = () => {
         fetch("http://localhost:8080/state/" + notification.state.id,{
@@ -52,7 +56,7 @@ export const UpdateNotificationStateButton = ({notification}) => {
             })
         }).then(res => {
             if (res.ok){
-                updateNotificationList()
+                getNextState().then( () => updateNotificationList())
             }
         } )
     }
@@ -61,9 +65,9 @@ export const UpdateNotificationStateButton = ({notification}) => {
         return (
             <>
             {status !== "solved" ?
-              <button onClick={ updateState }>{"mark as " + nextState}</button>
+              <button onClick={ updateState }>{"Mark as " + nextState}</button>
                 :
-              <button onClick={ deleteNotification }>delete</button>
+              <button onClick={ () => dispatch(changeModalComponentTo( () => DeleteConfirmModal({callback: () => deleteNotification()}))) }>Delete</button>
             }
             </>
             )

@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React from 'react';
 import DeleteApartmentButton from "./DeleteApartmentButton";
-import DisplayApartmentInfoButton from "./ConsorceTools/DisplayApartmentInfoButton";
 import { useMoreInfo } from '../../utils/useMoreInfo'
 
 const useBoolean = (initialState) => {
@@ -15,10 +14,10 @@ export const Apartment = ({apartment}) => {
     const [show , toggleShow] = useBoolean()
     const {name} = owner;
     return (
-        <li  style={{display: 'flex', flexDirection: 'column',justifyContent: 'space-around'}}>
-          <div style={{display: 'flex', justifyContent: 'space-around'}}>
+        <li>
+          <div>
             <div>{apartmentCode}</div>
-            <div>{name}</div>
+            <p className={'text-overflow'}>{name}</p>
             <div>
               <i  style={{cursor: "pointer"}} className="far fa-caret-square-down"  onClick={ toggleShow }/>
             </div>
@@ -35,9 +34,15 @@ export const Apartment = ({apartment}) => {
 
 const ApartmentDetails = ({apartment, show}) => {
 
+  const {owner} = apartment
   return(
-    <div style={useMoreInfo(show)}>
-      <p>Owners name: {apartment.owner.name}</p>
+    <div style={{...useMoreInfo(show) , display: 'flex', flexWrap: 'wrap'}}>
+      <hr style={{width: '100%'}}/>
+      <p style={{width: '40%', textAlign: 'left', margin: '.5rem'}}>Owners name: {owner.name}</p>
+      <p style={{width: '40%', textAlign: 'left', margin: '.5rem'}}>Dni: {owner.dni}</p>
+      <p style={{width: '40%', textAlign: 'left', margin: '.5rem'}}>Phone: {owner.phone}</p>
+      <p style={{width: '40%', textAlign: 'left', margin: '.5rem'}}>Age: {owner.age}</p>
+
       {apartment.tenant && <p>Tennants name: {apartment.tenant.name}</p>}
       
     </div>

@@ -4,28 +4,28 @@ import {Button, Cell, Grid} from "react-mdl";
 import {logout} from "../Components/generalFunctions/logout";
 import { NotificationList } from '../Components/adminHomePageComponents/Notifications/NotificationList'
 import ConsortAlerts from "../Components/consortHomePageComponents/ConsortAlerts";
+import ReportProblem from '../Components/consortHomePageComponents/ReportProblem'
 
+export const UPDATE_NOTIFICATIONS = 'update notifications'
 
 function HomePageConsort(){
 
-    const [getStarted, setGetStarted] = React.useState(false);
-
-    function toggle (e){
-        e.preventDefault();
-        setGetStarted(!getStarted);
-    }
-
-            return(
-                <div className="main-container">
-                    <Header/>
-                    <Grid className="no-padding">
-                        <Cell col={3}>
-                            <NotificationList/>
-                            <ConsortAlerts/>
-                        </Cell>
-                    </Grid>
-                </div>
-                )
+  return(
+      <div className="main-container" >
+          <Header/>
+          <Grid className="no-padding" >
+            <Cell col={3} >
+                <NotificationList/>
+            </Cell>
+            <Cell col={5} >
+              <ReportProblem list={() => {}}/>
+            </Cell>
+            <Cell col={4} >
+              <ConsortAlerts/>
+            </Cell>
+          </Grid>
+      </div>
+      )
 
 }
 

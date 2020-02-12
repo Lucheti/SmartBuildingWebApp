@@ -105,6 +105,7 @@ export default class RegisterForm extends Component {
         const { formErrors,name,email,password } = this.state;
         return (
             <div className="login">
+                <div>
                 <h2>Register</h2>
                 <form>
                     <div className="input-group">
@@ -136,6 +137,7 @@ export default class RegisterForm extends Component {
                     </div>
                 </form>
                 <a href="#">Already have an account? <span onClick={this.kill}>Click Here</span></a>
+                </div>
             </div>
         )
     }

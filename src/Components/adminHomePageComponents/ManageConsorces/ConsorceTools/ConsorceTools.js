@@ -11,10 +11,10 @@ export const ConsorceTools = ({consorce}) => {
 
     return (
         <div className="consorce-tools">
-            <ToggleApartmentListButton/>
-            <DeleteConsorceButton id={consorce.id}/>
-            <AddApartmentButton id={consorce.id}/>
-            <NotifyConsorces/>
+          <ToggleApartmentListButton/>
+          <NotifyConsorces/>
+          <AddApartmentButton id={consorce.id}/>
+          <DeleteConsorceButton id={consorce.id}/>
         </div>
     )
 }

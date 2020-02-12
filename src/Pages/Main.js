@@ -18,6 +18,7 @@ const PrivateRoute = ({ adminPage: AdminPage,consortPage: ConsortPage, ...rest }
 );
 
 const Main = () => (
+
     <Switch>
         <Route exact path="/" component={landingPage} />
         <PrivateRoute path="/home" adminPage={homePageAdmin} consortPage={homePageConsort} redirectCondition="admin"/>

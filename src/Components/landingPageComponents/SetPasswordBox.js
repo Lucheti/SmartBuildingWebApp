@@ -8,7 +8,10 @@ export default class SetPasswordBox extends Component {
         this.state = {
             password: "",
             submited: false,
-            user: props.user
+            user: props.user,
+            dni: '',
+            phone: '',
+            age: ''
         }
     }
 
@@ -31,6 +34,9 @@ export default class SetPasswordBox extends Component {
                 "password": this.state.user.password,
                 "name": this.state.user.name,
                 "role": this.state.user.role,
+                "dni": this.state.dni,
+                "age": this.state.age,
+                "phone": this.state.phone
 
             })
         }).then(res => {
@@ -53,13 +59,14 @@ export default class SetPasswordBox extends Component {
                 {!submited &&
                 <div className="set-password">
                     <h1>Hi {user.name}..</h1>
-                    <p>seems like you haven't set a password yet, <span>lets do it!</span></p>
-                    <form>
-                        <div className="input-group">
+                    <p>Seems like you haven't set a password yet, <span>lets do it!</span></p>
+                    <div style={{width: 'fit-content', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                             <input placeholder="Enter password here" name="password" type="password" value={this.state.password} onChange={this.updateState}/>
-                        </div>
+                            <input placeholder="Enter age here" name="age"  value={this.state.age} onChange={this.updateState}/>
+                            <input placeholder="Enter dni here" name="dni"  value={this.state.dni} onChange={this.updateState}/>
+                            <input placeholder="Enter phone here" name="phone"  value={this.state.phone} onChange={this.updateState}/>
                         <input type="submit" onClick={this.setPassword}/>
-                    </form>
+                    </div>
                 </div>}
                 {submited &&
                 <div className="set-password">

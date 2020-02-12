@@ -15,7 +15,7 @@ const addMarkers = (consorceLocations) => {
     consorceLocations.forEach( location => {
       L.marker([location.latitude,location.longitude])
         .addTo(map)
-        .bindPopup(location.consorce.name)
+        .bindPopup(location.consorce.name + '<br/>' + location.consorce.address)
         .openPopup();
     })
 }

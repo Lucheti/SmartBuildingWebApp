@@ -11,7 +11,7 @@ export default function ToggleApartmentListButton(){
     }
 
     return (
-      <button onClick={toggle}>{showDetails ? "Hide apartments" : "Show apartments"}</button>
+      <button onClick={toggle}>{"Apartments list"}</button>
         )
 
 }

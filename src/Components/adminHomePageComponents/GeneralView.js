@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Chart from "../../Test/Chart";
+import { NotificationList } from './Notifications/NotificationList'
+import '../../App.css'
 
 const getAdminInfo = () => {
     return fetch("http://localhost:8080/admins/" + window.sessionStorage.id, {
@@ -21,10 +23,17 @@ export const GeneralView = () => {
     },[])
 
     return (
-        <h1>
-            {"Hello " + admin + ","}
-            <Chart/>
-        </h1>
+      <div style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>
+          <div className={'notification-container'}>
+              <NotificationList/>
+          </div>
+          <div className={'mainview-container'}>
+              <h1 >
+                  {"Hello " + admin + ","}
+              </h1>
+              <Chart/>
+          </div>
+      </div>
     )
 
 }

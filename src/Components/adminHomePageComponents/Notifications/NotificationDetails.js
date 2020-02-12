@@ -1,7 +1,6 @@
 import React from 'react'
 import { BASE_URL } from '../../../Pages/Main'
-import { NotificationListContext } from './NotificationList'
-import { RenderContext } from '../../../Pages/homePageAdmin'
+import { RenderContext } from '../../../App'
 
 export const NotificationDetails = ({notification}) => {
   const {apartment, description} = notification;
@@ -10,8 +9,8 @@ export const NotificationDetails = ({notification}) => {
   return(
     <div className={"notification-details"} style={{padding: '1rem'}}>
       <h3>Notification details</h3>
-      <div style={{display: 'flex'}}>
-        <div style={{padding: '1rem'}}>
+      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+        <div style={{padding: '1rem', maxWidth: '50%'}}>
           <h4>Submitter</h4>
           <p>{owner.name}</p>
           <hr/>
@@ -22,9 +21,8 @@ export const NotificationDetails = ({notification}) => {
           <h4>Description</h4>
           <p>{description}</p>
         </div>
-        <div style={{padding: '1rem'}}>
-          <img style={{maxWidth: '100%', maxHeight: '100%'}} src={notification.image}/>
-        </div>
+        <div style={{padding: '1rem', backgroundImage: 'url("'+ notification.image +'")', width: '50%',backgroundSize: 'cover'}}/>
+
       </div>
       <History notificationId={notification.id}/>
     </div>
@@ -43,11 +41,11 @@ const History = ({notificationId}) => {
   },[notifications])
 
   return(
-    <div style={{ display: 'flex' , alignItems: 'center', justifyContent: 'space-between', padding: '1rem'}}>
+    <div style={{ display: 'flex' , alignItems: 'center', justifyContent: 'space-between', padding: '5rem'}}>
       {history.length > 0 && history.map( (historyItem, i) => (
         <>
           {i !== 0 && <i className="fas fa-arrow-right fa-3x"></i>}
-          <div style={{margin: '1rem', padding: '1rem'}} style={{background: 'white', borderRadius: '0.5rem' ,boxShadow: '0 0 10px rgba(0,0,0,.5)'}}>
+          <div className={historyItem.state.status} style={{margin: '1rem', padding: '1rem'}} style={{color: 'white', borderRadius: '0.5rem' ,boxShadow: '0 0 10px rgba(0,0,0,.25)'}}>
             <div style={{display: 'flex'}}>{toDate(historyItem.date).map( x => <p style={{margin: '1rem'}}>{x}</p>)}</div>
             <h3 style={{margin: '1rem', textAlign: 'center'}}>{historyItem.state.status}</h3>
           </div>

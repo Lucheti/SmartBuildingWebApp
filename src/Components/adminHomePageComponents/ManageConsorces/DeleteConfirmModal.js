@@ -1,8 +1,6 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { BASE_URL } from '../../../Pages/Main'
-import { RenderContext } from '../../../Pages/homePageAdmin'
 import { HIDE_MODAL } from '../reducers/RenderReducer'
+import { RenderContext } from '../../../App'
 
 export default function DeleteConfirmModal({callback}) {
 

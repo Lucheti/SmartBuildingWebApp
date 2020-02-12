@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Cell, Grid} from "react-mdl";
-import { RenderContext } from '../../Pages/homePageAdmin'
+import { RenderContext } from '../../App'
+
 
 const MainView = React.memo( () => {
 
@@ -8,11 +8,9 @@ const MainView = React.memo( () => {
     const {panelComponent: Component} = state
 
     return (
-            <Grid className="action-panel">
-                <Cell col={12} className="action-panel-view">
-                    <Component/>
-                </Cell>
-            </Grid>
+      <div className="action-panel">
+        <Component/>
+      </div>
     )
 })
 export default MainView

@@ -1,43 +1,46 @@
 import React from 'react';
 import { BASE_URL } from '../../../../Pages/Main'
 import { useInput } from '../../../landingPageComponents/UserLoginForm'
-import { RenderContext } from '../../../../Pages/homePageAdmin'
-import { HIDE_MODAL } from '../../reducers/RenderReducer'
+import { HIDE_MODAL, showAlert } from '../../reducers/RenderReducer'
 import '../../../../App.css'
 import { Input } from '../../../utils/Input'
+import { mailValidator, textValidator } from '../../../utils/Validators'
+import { RenderContext } from '../../../../App'
 
 export const AddApartmentForm = ({id , updateApartmentList}) => {
 
     const [ownerRef, ownerVal] = useInput()
     const [emailRef, emailVal] = useInput()
     const [apartmentCodeRef, apartmentCodeVal] = useInput()
-    const [pending, setPending] = React.useState()
     const {dispatch: modalDispatch} = React.useContext(RenderContext)
 
 
     const addApartment = evt => {
         evt.preventDefault();
-        setPending(true)
-        fetch(BASE_URL + "/admins/consorce/" + id + "/apartment",{
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                "owner": {
-                    "email": emailVal(),
-                    "name": ownerVal(),
-                    "role": "consort"
+        if (inputsAreValid()) {
+            fetch(BASE_URL + "/admins/consorce/" + id + "/apartment", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
                 },
-                "apartmentCode":apartmentCodeVal()
+                body: JSON.stringify({
+                    "owner": {
+                        "email": emailVal(),
+                        "name": ownerVal(),
+                        "role": "consort"
+                    },
+                    "apartmentCode": apartmentCodeVal()
+                })
+            }).then(() => {
+                updateApartmentList();
+                resetFields()
+                modalDispatch({ type: HIDE_MODAL })
             })
-        }).then(() => {
-            updateApartmentList();
-            resetFields()
-            setPending(false)
-            modalDispatch({type: HIDE_MODAL})
-        })
+        }else{
+            modalDispatch(showAlert('invalid inputs'))
+        }
+
     }
 
     const resetFields = () => {
@@ -46,15 +49,16 @@ export const AddApartmentForm = ({id , updateApartmentList}) => {
         apartmentCodeRef.current.value = ''
     }
 
+    const inputsAreValid = () => textValidator(ownerVal()) && textValidator(apartmentCodeVal()) && mailValidator(emailVal())
+
 
     return (
             <div className="inputs" style={{width: 'unset'}}>
-                {pending && <h4 style={{color: "red"}}>Sending Email</h4>}
                 <h4 style={{textAlign: 'center', margin: 0}}>New Apartment</h4>
                 <div style={{padding: '1rem 0'}}>
-                    <Input label={'Owner'} placeholder={'Owner'} ref={ownerRef}/>
-                    <Input label={'Apartment Code'} placeholder={'ApartmentCode'} ref={apartmentCodeRef}/>
-                    <Input label={'Email'} placeholder={'Email'} ref={emailRef}/>
+                    <Input label={'Owner'} placeholder={'Owner'} ref={ownerRef} validator={ textValidator }/>
+                    <Input label={'Apartment Code'} placeholder={'ApartmentCode'} ref={apartmentCodeRef} validator={ textValidator }/>
+                    <Input label={'Email'} placeholder={'Email'} ref={emailRef} validator={ mailValidator }/>
                 </div>
 
                 <div className={'submit-button'} style={{padding: '1rem'}}>

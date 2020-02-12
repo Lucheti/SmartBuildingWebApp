@@ -11,7 +11,7 @@ export default function ConsortAlerts(){
 
     function getAlerts(){
         if (!loaded) {
-            fetch(BASE_URL + "/alerts/" + window.sessionStorage.id, {
+            fetch(BASE_URL + "/alerts2/" + window.sessionStorage.id, {
                 method: 'GET',
                 headers: {
                 }
@@ -36,7 +36,7 @@ export default function ConsortAlerts(){
                 <h4>Alerts</h4>
                 <ul style={{padding: 0}}>
                     {getAlerts()}
-                    {loaded && alerts.map((alert, i) => (<Alert alert={alert}/>))}
+                    {loaded && alerts.map((alert, i) => (<Alert key={i} alert={alert}/>))}
                 </ul>
             </div>
         );

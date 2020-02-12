@@ -1,6 +1,6 @@
 import React from 'react'
-import { RenderContext } from '../../../Pages/homePageAdmin'
 import { HIDE_MODAL } from '../reducers/RenderReducer'
+import { RenderContext } from '../../../App'
 
 export const Modal = ({component: Component, condition}) => {
 

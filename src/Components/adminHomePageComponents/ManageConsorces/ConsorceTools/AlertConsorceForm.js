@@ -1,7 +1,7 @@
 import React from 'react'
 import { BASE_URL } from '../../../../Pages/Main'
-import { RenderContext } from '../../../../Pages/homePageAdmin'
 import { HIDE_MODAL } from '../../reducers/RenderReducer'
+import { RenderContext } from '../../../../App'
 
 export default function AlertConsorceForm({consorce ,update}) {
     const [category, setCategory] = React.useState("");
@@ -62,13 +62,19 @@ export default function AlertConsorceForm({consorce ,update}) {
 
 
     return(
-        <form className="consorce-form">
+        <form className="consorce-form inputs" style={{width: 'unset'}}>
             <h4>Alert</h4>
-            <input value={category} type="text" placeholder="Choose Category"  required="required" onChange={ (evt) => {setCategory(evt.target.value)}} list="browsers"/>
+            <div className={'input-group'} >
+                <p>{'Category'}</p>
+                <input value={category} type="text" placeholder="Choose Category"  required="required" onChange={ (evt) => {setCategory(evt.target.value)}} list="browsers"/>
+            </div>
             <datalist id="browsers">
                 {loaded && categorys && categorys.length > 0 && categorys.map( category => <option value={category.name}/>)}
             </datalist>
-            <input value={description} name="descripion" type="text" placeholder="Write here" required="required" onChange={(evt) => {setDescription(evt.target.value)}}/>
+            <div className={'input-group'} >
+                <p>{'Description'}</p>
+                <input value={description} name="descripion" type="text" placeholder="Write here" required="required" onChange={(evt) => {setDescription(evt.target.value)}}/>
+            </div>
             <input type="submit" value={"Add alert"} onClick={ addAlert }/>
         </form>
     )

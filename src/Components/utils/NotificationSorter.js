@@ -45,9 +45,7 @@ export const sortNotifications = (type, notificationList) =>{
         }
         return 0;});
     }
-    case "default": {
-      return []
-    }
+    default: return notificationList
   }
 };
 const sortNotificationsByState = (stateId,notificationsList) =>{

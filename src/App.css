@@ -8,6 +8,12 @@
 
 
 /*GENERAL*/
+.text-overflow {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .main-container{
     background: white;
     min-height: 100vh;
@@ -60,11 +66,42 @@
     border-top: 1px solid rgba(0,0,0,.2);
 }
 
+.h-flex{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
 .test-component{
     position: relative;
     background: rgba(0,0,0,.5);
     height: 20vh;
 }
+
+
+
+@media (max-width: 1000px) {
+    .notification-container{
+        width: 100% !important;
+    }
+
+    .mainview-container{
+        width: 100% !important;
+    }
+
+    .resizable-h{
+        font-size: large;
+    }
+}
+
+.notification-container{
+    width: 30%;
+}
+
+.mainview-container{
+    width: 70%;
+}
+
 
 
 
@@ -91,15 +128,18 @@
 .login
 {
     position: absolute;
-    top: 25vh;
-    left: 5vw;
+    top: 5vh;
+    right: 5vh;
     text-align: center;
-    width: 350px;
+    width: 35vw;
+    height: 90vh;
     box-sizing: border-box;
     padding: 40px;
     background: #fff;
     box-shadow: rgba(0,0,0,0.5) 0 0 10px;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .login .error{
@@ -111,7 +151,7 @@
     margin: 0;
 }
 
-.login h2
+.login h2,h3,h4
 {
     margin: 0 0 20px;
     padding: 0;
@@ -194,13 +234,7 @@
 
 .search
 {
-    position: absolute;
-    top: 55vh;
-    left: 45vw;
-    width: 50%;
     height: 80px;
-    background: #fff;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
     border-radius: 4px;
     transition: width 0.7s;
     overflow: hidden;
@@ -209,9 +243,6 @@
 .search input
 {
     font-family: var(--font);
-    position: absolute;
-    top: 10px;
-    left: 10px;
     width: calc(100% - 90px);
     height: 60px;
     border: none;
@@ -219,14 +250,12 @@
     font-size: 36px;
     padding: 0 10px;
     color: #666;
+    border-bottom: 2px solid rgba(0,0,0,.3);
 }
 
 
 .icon
 {
-    position: absolute;
-    top: 10px;
-    right: 10px;
     width: 60px;
     height: 60px;
     cursor: pointer;
@@ -236,9 +265,6 @@
 .icon:before
 {
     content: '';
-    position: absolute;
-    top: 10px;
-    left: 10px;
     width: 24px;
     height: 24px;
     background: transparent;
@@ -248,9 +274,6 @@
 .icon:after
 {
     content: '';
-    position: absolute;
-    top: 25px;
-    left: 35px;
     width: 18px;
     height: 18px;
     background: transparent;
@@ -272,7 +295,7 @@
 }
 
 .notification-list{
-    max-height: 84vh;
+    max-height: 74vh;
     overflow: scroll;
     list-style: none;
     padding: 5px 0.5em 5px 0.5em;
@@ -289,22 +312,39 @@
     background: rgba(255,255,255,1);
     box-shadow: 0 0 5px rgba(0,0,0,.2) ;
     justify-content: space-between;
+    margin-bottom: 1rem;
 }
 
 .notification-list .pending{
     border-left: rgba(0, 0, 0,.3) 0.5vw solid;
 }
 
+.pending{
+    background: rgba(0, 0, 0,.3);
+}
+
 .notification-list .recived{
     border-left: rgb(76, 155, 255) 0.5vw solid;
+}
+
+.recived{
+    background: rgb(76, 155, 255);
 }
 
 .notification-list .working{
     border-left: rgb(255, 255, 12) 0.5vw solid;
 }
 
+.working{
+    background: rgb(255, 224, 1);
+}
+
 .notification-list .solved{
     border-left: rgb(60, 255, 90) 0.5vw solid;
+}
+
+.solved{
+    background: rgb(60, 255, 90);
 }
 
 .notification-list h4{
@@ -355,6 +395,8 @@
     flex-direction: column;
     justify-content: space-around;
     border-left: 1px solid rgba(0,0,0,.2);
+    min-width: 33%;
+    max-width: 33%;
 }
 
 .notification-buttons hr{
@@ -389,10 +431,9 @@
 /*ACTION PANEL*/
 
 .action-panel{
-    height: 97vh;
-    padding: 0 2vw !important;
-    overflow: hidden;
+    padding: 2rem;
     background: rgb(255,255,255);
+    min-height: 75vh;
 }
 
 .action-panel-navbar{
@@ -491,12 +532,13 @@
     flex-direction: column;
     position: relative;
     color: rgba(255,255,255,1);
-    width: 90%;
-    padding: 0;
+    padding: .5rem;
+    margin: 0;
 }
 .apartments li
 {
     display: flex;
+    flex-direction: column;
     /*background: rgba(0,0,0,.5);*/
     color: black;
     padding: 10px 20px;
@@ -506,20 +548,57 @@
     border: 1px solid #000;
 }
 
+.apartments li div {
+    display: flex;
+    width: 100%;
+}
 
+.apartments li div :nth-child(1){
+    width: 30%;
+}
+
+.apartments li div :nth-child(2){
+    width: 50%;
+    margin: 0;
+    text-align: left;
+}
+
+.apartments li div :nth-child(3){
+    width: 10%;
+    flex-direction: row-reverse;
+}
+
+.apartments li div :nth-child(4){
+    width: 10%;
+    flex-direction: row-reverse;
+}
 
 /*SET PASSWORD BOX*/
+
+.black-screen {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0,0,0,.5);
+}
 
 .set-password{
     --height: 40vh;
     --width: 70vw;
     position: absolute;
-    top: calc(50% - var(--height)/2);
+    top: 10vh;
     left: calc(50% - var(--width)/2);
-    height: var(--height);
+    height: auto;
     width: var(--width);
     background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(236,233,230,0.9));
     box-shadow: rgba(0,0,0,0.5) 0 0 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .set-password h1,h2,h3,p {
     position: relative;
@@ -533,13 +612,12 @@
     align-items: center;
 }
 
-.set-password input[type="password"]{
-    margin: 4vh auto 0 auto;
+.set-password input{
+    margin: 1rem 0;
+    padding: 0 1rem;
     display: block;
-    padding: 1em;
-    width: 30vw;
-    height: 3vh;
-    font-size: 2vh;
+    height: 3rem;
+    font-size: 1.3rem;
 }
 
 .set-password input[type="submit"]{
@@ -576,32 +654,39 @@
 
 .consorce-tools{
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
     padding: 1rem;
-    width: 100%;
+    justify-content: space-around;
+    background: white;
 }
 
 .consorce-tools button{
     cursor: pointer;
-    background: none;
+    background: white;
+    padding: .7rem;
+    margin: .5rem;
+    width: 40%;
     outline: none;
     border: none;
     font-size: 1rem;
+    border-radius: 3rem;
+    box-shadow: 0 0 2px rgba(0,0,0,.5);
+    color: rgba(0,0,0,.7);
+    font-weight: bolder;
+
 }
+
 
 /*REPORT PROBLEM*/
 
 .report-problem {
-    margin: 0 auto;
-    position: absolute;
-    top: 15vh;
-    left: 35vw;
-    width: 40vw;
+    margin: 0;
     background: rgba(255,255,255,1);
     padding: 2em;
     text-align: center;
     align-items: center;
     align-content: center;
+    box-shadow: 0 0 5px rgba(0,0,0,.5);
 }
 
 #report-problemh1,#report-problemh4{
@@ -666,7 +751,6 @@
 
 .consorce-item input{
     margin: 10px 0.5vw;
-    /*border-radius: 10px;*/
     border: none;
     border-bottom: 2px solid black;
     outline: none !important;
@@ -675,62 +759,43 @@
     font-weight: bolder;
 }
 
-
-.title-highlighter{
-    height: 100%;
-    float: right;
-    width: 49.98%;
-    background: white;
-    padding: 0.1px;
+.consorce{
+    background-size: cover;
+    height: 25rem;
+    width: 25rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
 }
-.title-highlighter h2{
+
+.consorce h2 {
     margin: 0;
-    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    line-height: normal;
     text-align: left;
-    color: black;
-    font-family: var(--font);
-}
-.building{
-    position: relative;
-    float: left;
-    width: 50%;
-    height: 100%;
-    background-size: cover;
-    box-shadow: rgba(0,0,0,.5) 0 0 5px;
-}
-.building0{
-    background-image: url("resources/buildings/building1.jpg");
+    color: rgba(0,0,0,0.8);
 }
 
-.building1{
-    background-image: url("resources/buildings/building2.jpg");
+.consorce-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem;
+    box-shadow: 0 0 5px rgba(0,0,0,.5);
 }
 
-.building2{
-    background-image: url("resources/buildings/building3.jpg");
+.degrade {
+    background: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: space-between;
 }
 
-.building3{
-    background-image: url("resources/buildings/building4.jpg");
-}
-
-.building4{
-    background-image: url("resources/buildings/building5.jpg");
-}
-
-.building5{
-    background-image: url("resources/buildings/building6.jpg");
-}
-
-.building6{
-    background-image: url("resources/buildings/building7.jpg");
-}
-
-.building7{
-    background-image: url("resources/buildings/building8.jpg");
+.alert-button{
+    background: none;
+    color: red;
+    border: none;
+    outline: none;
 }
 
 /*CONSORCE FORM*/
@@ -750,10 +815,10 @@
 /*ALERT*/
 .alert {
     display: flex;
+    justify-content: space-around;
     margin: 1vh auto;
     font-size: 10px;
     color: black;
-    width: 100%;
 }
 
 .important-icon{
@@ -764,9 +829,13 @@
 }
 .alert div{
     display: flex;
-    max-width: 60%;
 }
-.alert div:first-child{
+
+.alertAux {
+    margin-bottom: .5rem;
+}
+
+.alert i{
     margin: auto 1vw;
     color: rgb(255, 0, 0);
 }
@@ -785,12 +854,12 @@
 .alert p{
     margin: 0;
     max-width: 100%;
-    overflow: hidden;
     overflow-wrap: break-word;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
+    text-align: justify;
 }
 
 /*SORTER*/
@@ -818,12 +887,10 @@
 .consort-alerts{
     align-content: center;
     text-align: center;
-    position: absolute;
     background: white;
     top: 70vh;
     left: 35vw;
-    width: 40vw;
-
+    /*width: 40vw;*/
     padding: 1em 2em;
 
 }
@@ -836,7 +903,7 @@
 
 }
 
-.add-consorce .file-upload{
+.file-upload{
     position: relative;
     width: 50%;
     margin: 1rem;
@@ -848,11 +915,11 @@
     background-size: cover;
 }
 
-.add-consorce .file-upload label > *{
+.file-upload label > *{
     margin: 0 .5rem;
 }
 
-.add-consorce .file-upload input{
+.file-upload input{
     opacity: 0;
     width: 100%;
     position: absolute;
@@ -881,6 +948,7 @@
     border: none;
     border-bottom: 1px solid gray;
     font-size: 1rem;
+    outline: none;
 }
 
 .inputs .input-group p{
@@ -904,4 +972,23 @@
 
 
 
-#mapid { height: 95%; }
+#mapid { height: 80vh; }
+
+.consorce-info-header{
+    padding: 1rem;
+    display: flex;
+    flex-direction: row-reverse;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.5);
+}
+
+.consorce-info-header button{
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.blue-on-hover:hover {
+    background: #3e84ff;
+    color: white;
+}

@@ -1,18 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { UpdateNotificationStateButton } from './UpdateNotificationStateButton'
-import { RenderContext } from '../../../Pages/homePageAdmin'
-import { changePanelComponentTo, SHOW_MODAL } from '../reducers/RenderReducer'
-import { BASE_URL } from '../../../Pages/Main'
+import { changePanelComponentTo } from '../reducers/RenderReducer'
 import { NotificationDetails } from './NotificationDetails'
-import { NotificationListContext } from './NotificationList'
-var base64 = require('base-64');
+import { RenderContext } from '../../../App'
 
 export const Notification = ({notification}) => {
     const {dispatch} = React.useContext(RenderContext)
 
     const ShowDetails = e =>{
-        e.preventDefault();
-        dispatch(changePanelComponentTo(<NotificationDetails notification={notification} />))
+        dispatch(changePanelComponentTo(() => <NotificationDetails notification={notification} />))
     };
 
     const {apartment, category} = notification;
@@ -31,7 +27,7 @@ export const Notification = ({notification}) => {
           <div className="notification-buttons">
             <UpdateNotificationStateButton  notification={notification}/>
             <hr/>
-            <button onClick={ShowDetails}>show details</button>
+            <button onClick={ShowDetails}>Show details</button>
           </div>
 
           {/*{important && <div className="important-icon"><i className="fas fa-exclamation-triangle fa-2x"/></div>}*/}
@@ -40,7 +36,7 @@ export const Notification = ({notification}) => {
 
     return (
         <li className={notification.state.status + (notification.category.important? " important" : "")}>
-            <div>
+            <div className={'notification-quick-info'}>
               <h4>{consorce.name}</h4>
               <h4>{apartmentCode}</h4>
               <p id="category">{category.name}</p>

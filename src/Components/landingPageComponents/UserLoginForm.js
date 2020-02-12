@@ -1,5 +1,6 @@
 import React, {useRef} from 'react';
 import {RegisterContext} from "../../Pages/landingPage";
+import ConsortRegisterForm from './ConsortRegisterForm'
 
 export const useInput = () => {
     const ref = useRef();
@@ -47,6 +48,7 @@ export default function userLoginForm(){
 
     return (
         <div className="login">
+          <div>
             <h2>Sign In</h2>
             {error &&
             <div className={'error'}>
@@ -67,7 +69,17 @@ export default function userLoginForm(){
                 </div>
             </form>
             <a href="#">Have no account? <span onClick={register}>Click Here</span></a>
-            <a href="#">Forgot Password? <span>Click Here</span></a>
+          </div>
+          <div style={{display: 'flex', padding: '1rem 0'}}>
+            <hr style={{width: '100%'}}/>
+            <h4 style={{margin: '0 1rem'}}>Or</h4>
+            <hr style={{width: '100%'}}/>
+          </div>
+          <div style={{display: 'flex', flexDirection: 'column' ,minHeight: '37vh'}}>
+            <h2>First time as consort?</h2>
+            <p style={{color:'rgba(0,0,0,0.4)'}}>If you have a consort code setup your account here</p>
+            <ConsortRegisterForm/>
+          </div>
         </div>
     )
 
