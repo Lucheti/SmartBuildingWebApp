@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@amcharts/amcharts4": "^4.4.10",
+    "@amcharts/amcharts4": "^4.10.29",
     "@material-ui/core": "latest",
     "base-64": "^0.1.0",
     "config": "^3.0.1",
